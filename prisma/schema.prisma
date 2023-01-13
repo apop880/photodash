@@ -12,7 +12,7 @@ datasource db {
 
 model Configuration {
   uid String @id @default(cuid())
-  name String
+  name String @unique
   weatherEntity String?
   backgroundMusicEntity String?
   backgroundMusicFile String?

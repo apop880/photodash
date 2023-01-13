@@ -14,7 +14,7 @@ model Configuration {
   uid String @id @default(cuid())
   name String
   weatherEntity String?
-  backgroundMusic Boolean
+  backgroundMusicEntity String?
   backgroundMusicFile String?
   //views Views[]
 }

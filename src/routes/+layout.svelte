@@ -2,6 +2,6 @@
     import { SvelteUIProvider } from '@svelteuidev/core';
 </script>
 
-<SvelteUIProvider>
+<SvelteUIProvider withNormalizeCSS withGlobalStyles>
     <slot />
 </SvelteUIProvider>

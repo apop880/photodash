@@ -1,9 +1,11 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { stateStore } from '$lib/apistore'
+    import { AppShell } from '@svelteuidev/core'
     export let data: PageData;
 </script>
 
+<AppShell><slot>
 {#if $stateStore !== null}
 <form>
     <label for="weather-select">Weather Entity</label>
@@ -17,3 +19,4 @@
     </select>
 </form>
 {/if}
+</slot></AppShell>

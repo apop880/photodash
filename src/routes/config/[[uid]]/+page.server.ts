@@ -8,8 +8,8 @@ export const load = (async ({ params }) => {
     return { configuration: body }
 }) satisfies PageServerLoad
 
-export const actions: Actions = {
-    default: async (event) => {
+// export const actions: Actions = {
+//     default: async (event) => {
 
-    }
-}
+//     }
+// }

@@ -1,4 +1,5 @@
 import { readable } from 'svelte/store';
+import { browser } from '$app/environment';
 import { hassUrl, token } from './env'
 import {
 	createConnection,
@@ -29,14 +30,17 @@ const createAndSubscribe = async (auth, set) => {
 }
 
 export const stateStore = readable<null | HassEntities>(null, function start(set) {
-	const auth = createLongLivedTokenAuth(
-		hassUrl,
-		token
-	);
-	createAndSubscribe(auth, set)
-	return function stop() {
-		conn.close()
+	if (browser) {
+		const auth = createLongLivedTokenAuth(
+			hassUrl,
+			token
+		);
+		createAndSubscribe(auth, set)
+		return function stop() {
+			conn.close()
+		}
 	}
+	return function stop() {}
 });
 
 

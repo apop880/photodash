@@ -9,7 +9,7 @@
 {#if $stateStore !== null}
 <form method="POST">
     <label for="name">Configuration Name</label>
-    <input type="text" id="name" name="name" required>
+    <input type="text" id="name" name="name" value={data.configuration?.name} required>
     <label for="weather-entity">Weather Entity</label>
     <select name="weatherEntity" id="weather-entity">
         <option value="" selected={data.configuration?.weatherEntity === null}> </option>
@@ -29,7 +29,7 @@
         {/each}
     </select><br>
     <label for="music-file">Background Music File</label>
-    <input type="text" id="music-file" name="backgroundMusicFile">
+    <input type="text" id="music-file" name="backgroundMusicFile" value={data.configuration?.backgroundMusicFile}>
     <Button>Save</Button>
 </form>
 {/if}

@@ -1,11 +1,28 @@
 import prisma from "$lib/prisma";
+import { env } from "$env/dynamic/public";
 import type { PageServerLoad, Actions } from "./$types"
 
-export const load = (async ({ params }) => {
-    //let body = await prisma.configuration.findMany();
-    let body = await prisma.configuration.findFirst({where: {uid: params.uid}})
-    
-    return { configuration: body }
+type Entity = {
+    attributes: Object
+    entity_id: string
+    last_changed: Date
+    state: string
+}
+
+export const load = (async ({ params, fetch }) => {
+    const configuration = await prisma.configuration.findFirst({where: {uid: params.uid}});
+    const res = await fetch(
+        `${env.SUPERVISOR_URL}/api/states`,
+        {
+            headers: {
+                "Authorization": `Bearer ${env.SUPERVISOR_TOKEN}`,
+                "Content-Type": "application/json"
+            }
+        }
+    )
+    const json: Array<Entity> = await res.json();
+    const entities = json.map(e => e.entity_id).sort();
+    return { configuration, entities }
 }) satisfies PageServerLoad
 
 export const actions: Actions = {

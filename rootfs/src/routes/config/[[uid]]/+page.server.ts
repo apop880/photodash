@@ -1,6 +1,7 @@
 import prisma from "$lib/prisma";
 import { env } from "$env/dynamic/public";
-import type { PageServerLoad, Actions } from "./$types"
+import type { PageServerLoad, Actions} from "./$types"
+import type { Configuration } from "@prisma/client";
 
 type Entity = {
     attributes: Object
@@ -10,7 +11,8 @@ type Entity = {
 }
 
 export const load = (async ({ params, fetch }) => {
-    const configuration = await prisma.configuration.findFirst({where: {uid: params.uid}});
+    const configuration: Configuration = await prisma.configuration.findFirst({where: {uid: params.uid ?? "new"}})
+        ?? {name: "", backgroundMusicFile: ""} as Configuration
     const res = await fetch(
         `${env.SUPERVISOR_URL}/api/states`,
         {

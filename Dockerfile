@@ -14,6 +14,7 @@ COPY package.json /
 COPY /src /src
 COPY /prisma /prisma
 
+RUN chmod a+x /run.sh
 RUN /run.sh
 
 RUN npm install

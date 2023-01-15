@@ -1,4 +1,4 @@
-import { readable } from 'svelte/store';
+import { readable, type Subscriber } from 'svelte/store';
 import { browser } from '$app/environment';
 import { env } from '$env/dynamic/public'
 import {
@@ -7,12 +7,13 @@ import {
 	subscribeEntities,
 	callService,
 	Connection,
-	type HassEntities
+	type HassEntities,
+	Auth
   } from "home-assistant-js-websocket";
 
 let conn: Connection;
 
-const createAndSubscribe = async (auth, set) => {
+const createAndSubscribe = async (auth: Auth, set: Subscriber<HassEntities | null>) => {
 	conn = await createConnection({ auth });
 	subscribeEntities(
 		conn,

@@ -1,6 +1,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+ARG BUILD_ARCH
+
 RUN apk add --update nodejs nodejs-npm
 
 # Copy data for add-on

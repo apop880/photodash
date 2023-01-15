@@ -1,7 +1,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG BUILD_ARCH
+ENV LANG C.UTF-8
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apk add --update nodejs nodejs-npm
 

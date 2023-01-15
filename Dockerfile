@@ -9,15 +9,11 @@ RUN apk add --no-cache \
     npm
 
 # Copy data for add-on
-COPY run.sh /
-COPY package.json /
-COPY /src /src
-COPY /prisma /prisma
+COPY rootfs /
 
 RUN chmod a+x /run.sh
 
 RUN npm install
 RUN npm run build
-RUN npx prisma db push
 
 CMD ./run.sh

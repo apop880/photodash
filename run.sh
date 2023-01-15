@@ -1,3 +1,4 @@
+#!/usr/bin/with-contenv bashio
 host=$(bashio::services "mysql" "host")
 password=$(bashio::services "mysql" "password")
 port=$(bashio::services "mysql" "port")

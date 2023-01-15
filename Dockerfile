@@ -4,7 +4,9 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN apk add --update nodejs nodejs-npm
+RUN apk add --nocache \
+    nodejs \
+    npm
 
 # Copy data for add-on
 COPY run.sh /

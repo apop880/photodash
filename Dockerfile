@@ -15,10 +15,9 @@ COPY /src /src
 COPY /prisma /prisma
 
 RUN chmod a+x /run.sh
-RUN /run.sh
 
 RUN npm install
 RUN npm run build
 RUN npx prisma db push
 
-CMD node /build/index.js
+CMD ./run.sh

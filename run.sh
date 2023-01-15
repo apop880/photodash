@@ -7,3 +7,5 @@ username=$(bashio::services "mysql" "username")
 echo "CREATE DATABASE IF NOT EXISTS photodash;" \
     | mysql -h "${host}" -P "${port}" -u "${username}" -p"${password}"
 DATABASE_URL="mysql://${username}:${password}@${host}:${port}/photodash?schema=public"
+npx prisma db push
+node /build/index.js

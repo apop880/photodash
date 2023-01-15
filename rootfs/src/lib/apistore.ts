@@ -9,7 +9,7 @@ import {
 	Connection,
 	type HassEntities,
 	Auth
-  } from "home-assistant-js-websocket";
+  } from "$lib/home-assistant-js-websocket";
 
 let conn: Connection;
 

@@ -1,6 +1,6 @@
 name: "Photodash"
 description: "A beautiful, photo focused Home Assistant alternative dashboard."
-version: "0.1.3"
+version: "0.1.4"
 slug: "photo_dash"
 init: false
 arch:

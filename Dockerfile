@@ -14,7 +14,7 @@ COPY package.json /
 COPY /src /src
 COPY /prisma /prisma
 
-RUN run.sh
+RUN /run.sh
 
 RUN npm install
 RUN npm build

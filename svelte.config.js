@@ -8,8 +8,11 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter()
-	}
+		adapter: adapter(),
+		env: {
+			publicPrefix: "SUPERVISOR_"
+		}
+	},
 };
 
 export default config;

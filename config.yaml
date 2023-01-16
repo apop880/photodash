@@ -1,6 +1,6 @@
 name: "Photodash"
 description: "A beautiful, photo focused Home Assistant alternative dashboard."
-version: "0.1.14"
+version: "0.1.18"
 slug: "photo_dash"
 init: false
 arch:
@@ -15,3 +15,4 @@ ports:
 services:
   - mysql:need
 homeassistant_api: true
+webui: http://[HOST]:[PORT:3000]

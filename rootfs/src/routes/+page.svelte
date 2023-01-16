@@ -7,17 +7,25 @@
 <AppShell><slot>
 <Stack>
 <h1>Welcome to PhotoDash!</h1>
-{#if data.configurations.length > 0}
-    <h2>Existing Configurations</h2>
-        {#each data.configurations as config}
-            <Group grow>
-                <Text>{config.name}</Text>
-                <Button href={`/${config.uid}`}>Load</Button>
-                <Button href={`/config/${config.uid}`}>Edit</Button>
-            </Group>
-        {/each}
+{#if data.hassBaseUrl === null}
+<form method="POST">
+    <label for="hassBaseUrl">For Initial Setup, Please Provide the Base URL, including port, of your Home Assistant instance:</label>
+    <input type="text" id="hassBaseUrl" name="hassBaseUrl" placeholder="e.g. http://192.168.1.1:8123" required>
+    <Button>Save</Button>
+</form>
 {:else}
-    <h2>No Existing Configurations</h2>
+    {#if data.configurations.length > 0}
+        <h2>Existing Configurations</h2>
+            {#each data.configurations as config}
+                <Group grow>
+                    <Text>{config.name}</Text>
+                    <Button href={`/${config.uid}`}>Load</Button>
+                    <Button href={`/config/${config.uid}`}>Edit</Button>
+                </Group>
+            {/each}
+    {:else}
+        <h2>No Existing Configurations</h2>
+    {/if}
 {/if}
 <Button href="/config">Create New Configuration</Button>
 </Stack>

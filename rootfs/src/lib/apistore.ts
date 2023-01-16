@@ -7,13 +7,18 @@ import {
 	subscribeEntities,
 	callService,
 	Connection,
-	type HassEntities,
-	Auth
+	type HassEntities
   } from "home-assistant-js-websocket";
 
 let conn: Connection;
 
-const createAndSubscribe = async (auth: Auth, set: Subscriber<HassEntities | null>) => {
+const createAndSubscribe = async (set: Subscriber<HassEntities | null>) => {
+	const res = await fetch("/api/baseSettings");
+	const hassBaseUrl = await res.text();
+	const auth = createLongLivedTokenAuth(
+		hassBaseUrl,
+		env.SUPERVISOR_TOKEN
+	);
 	conn = await createConnection({ auth });
 	subscribeEntities(
 		conn,
@@ -31,12 +36,8 @@ const createAndSubscribe = async (auth: Auth, set: Subscriber<HassEntities | nul
 }
 
 export const stateStore = readable<null | HassEntities>(null, function start(set) {
-	if (browser) {
-		const auth = createLongLivedTokenAuth(
-			env.SUPERVISOR_URL,
-			env.SUPERVISOR_TOKEN
-		);
-		createAndSubscribe(auth, set)
+	if (browser) {		
+		createAndSubscribe(set)
 		return function stop() {
 			conn.close()
 		}

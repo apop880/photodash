@@ -7,7 +7,6 @@
     let auth;
     if (!(data.token) && browser) {
         auth = getHassAuth(data.hassBaseUrl);
-        console.log(auth)
     }
 </script>
 

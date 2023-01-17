@@ -17,7 +17,6 @@ import {
 let conn: Connection;
 
 async function loadTokens() {
-	console.log("made it here")
 	try {
 		return JSON.parse(localStorage.hassTokens)
 	}

@@ -1,6 +1,5 @@
 import { readable, type Subscriber } from 'svelte/store';
 import { browser } from '$app/environment';
-import { env } from '$env/dynamic/public'
 import {
 	createConnection,
 	createLongLivedTokenAuth,
@@ -34,7 +33,7 @@ const createAndSubscribe = async (set: Subscriber<HassEntities | null>) => {
 	const settings = await res.json();
 	let auth;
 	if (settings.token === null) {
-		auth = await getAuth({ hassUrl: settings.hassBaseUrl, loadTokens, saveTokens });
+		auth = await getAuth({ hassUrl: settings.hassBaseUrl, loadTokens, saveTokens, clientId: "Photodash" });
 	}
 	else {
 		auth = createLongLivedTokenAuth(settings.hassBaseUrl, settings.token)
@@ -83,7 +82,7 @@ export const action = (serviceType: string, target: string) => {
 }
 
 export const getHassAuth = async (hassBaseUrl: string) => {
-	let auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
+	let auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens, clientId: "Photodash" });
 	if (auth.expired) {
 		saveTokens(null);
 		auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });

@@ -6,7 +6,7 @@
     export let data: PageData;
     let auth;
     if (!(data.token) && browser) {
-        auth = getHassAuth(data.hassBaseUrl);
+        getHassAuth(data.hassBaseUrl);
     }
 </script>
 

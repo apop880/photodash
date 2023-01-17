@@ -10,7 +10,8 @@ import {
 	type HassEntities,
 	getAuth,
 	type SaveTokensFunc,
-	type LoadTokensFunc
+	type LoadTokensFunc,
+	ERR_INVALID_AUTH
   } from "home-assistant-js-websocket";
 
 let conn: Connection;
@@ -39,7 +40,16 @@ const createAndSubscribe = async (set: Subscriber<HassEntities | null>) => {
 	else {
 		auth = createLongLivedTokenAuth(settings.hassBaseUrl, settings.token)
 	}
-	conn = await createConnection({ auth });
+	try {
+		conn = await createConnection({ auth });
+	}
+	catch (err) {
+		if (err === ERR_INVALID_AUTH) {
+			saveTokens(null);
+			auth = await getAuth({ hassUrl: settings.hassBaseUrl, loadTokens, saveTokens });
+			conn = await createConnection({ auth });
+		}
+	}
 	subscribeEntities(
 		conn,
 		entities => {
@@ -74,6 +84,11 @@ export const action = (serviceType: string, target: string) => {
 }
 
 export const getHassAuth = async (hassBaseUrl: string) => {
-	const auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
+	let auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
+	if (auth.expired) {
+		saveTokens(null);
+		auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
+	}
+
 	return auth;
 }

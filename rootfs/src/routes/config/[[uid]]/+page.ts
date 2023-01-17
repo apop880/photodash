@@ -18,15 +18,21 @@ export const load = (async ({ data, fetch }) => {
             const auth = await getHassAuth(settings.hassBaseUrl);
             token = auth.accessToken;
         }
-        const statesRes = await fetch(
-            `${settings.hassBaseUrl}/api/states`,
-            {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
+        let statesRes;
+        try {
+            statesRes = await fetch(
+                `${settings.hassBaseUrl}/api/states`,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
                 }
-            }
-        )
+            )
+        }
+        catch (err) {
+            return { ...data, entities: [], error: "Error fetching entities from Home Assistant" }
+        }
         const json: Array<Entity> = await statesRes.json();
         const entities = json.map(e => e.entity_id).sort();
         return { ...data, entities }

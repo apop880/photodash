@@ -1,7 +1,9 @@
 import prisma from '$lib/prisma'
+import { json } from '@sveltejs/kit'
 
 export async function GET() {
-    let body = await prisma.baseSettings.findFirst({where: {param: 'hassBaseUrl'}})
+    let hassBaseUrl = await prisma.baseSettings.findFirst({where: {param: 'hassBaseUrl'}})
+    let token = await prisma.baseSettings.findFirst({where: {param: 'token'}})
     
-    return new Response(body?.value)
+    return json({hassBaseUrl: hassBaseUrl?.value, token: token?.value})
   }

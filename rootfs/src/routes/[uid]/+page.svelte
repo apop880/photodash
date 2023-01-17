@@ -13,3 +13,10 @@
     {/if}
 {/if}
 </slot></AppShell>
+
+<style>
+    :global(body) {
+        background-color: rgb(51, 51, 51);
+        overflow-y: hidden;
+    }
+</style>

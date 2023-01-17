@@ -9,9 +9,6 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
-		env: {
-			publicPrefix: "SUPERVISOR_"
-		},
 		csrf: false
 	},
 };

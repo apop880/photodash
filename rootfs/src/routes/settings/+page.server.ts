@@ -1,13 +1,6 @@
 import prisma from "$lib/prisma";
 import type { PageServerLoad, Actions } from "./$types";
 
-export const load = (async () => {
-    let hassBaseUrl = await prisma.baseSettings.findFirst({where: {param: 'hassBaseUrl'}})
-    let token = await prisma.baseSettings.findFirst({where: {param: 'token'}})
-    
-    return { hassBaseUrl: hassBaseUrl?.value ?? null, token: token?.value ?? null }
-}) satisfies PageServerLoad
-
 export const actions: Actions = {
     default: async ({ request, params }) => {
         
@@ -38,5 +31,6 @@ export const actions: Actions = {
                 value: token
             }
         });
+        return { success: true }
     }
 }

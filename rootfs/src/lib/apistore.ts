@@ -1,5 +1,7 @@
 import { readable, type Subscriber } from 'svelte/store';
 import { browser } from '$app/environment';
+import { get } from 'svelte/store';
+import { page } from '$app/stores';
 import {
 	createConnection,
 	createLongLivedTokenAuth,
@@ -9,7 +11,6 @@ import {
 	type HassEntities,
 	getAuth,
 	type SaveTokensFunc,
-	type LoadTokensFunc,
 	ERR_INVALID_AUTH
   } from "home-assistant-js-websocket";
 
@@ -29,11 +30,10 @@ const saveTokens: SaveTokensFunc = (tokens) => {
 }
 
 const createAndSubscribe = async (set: Subscriber<HassEntities | null>) => {
-	const res = await fetch("/api/baseSettings");
-	const settings = await res.json();
+	const settings = get(page).data;
 	let auth;
 	if (settings.token === null) {
-		auth = await getAuth({ hassUrl: settings.hassBaseUrl, loadTokens, saveTokens, clientId: "Photodash" });
+		auth = await getAuth({ hassUrl: settings.hassBaseUrl, loadTokens, saveTokens });
 	}
 	else {
 		auth = createLongLivedTokenAuth(settings.hassBaseUrl, settings.token)
@@ -82,7 +82,7 @@ export const action = (serviceType: string, target: string) => {
 }
 
 export const getHassAuth = async (hassBaseUrl: string) => {
-	let auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens, clientId: "Photodash" });
+	let auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
 	if (auth.expired) {
 		saveTokens(null);
 		auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });

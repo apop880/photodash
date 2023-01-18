@@ -1,7 +1,13 @@
 <script lang="ts">
-    import type { PageData } from './$types'
+    import type { PageData, ActionData } from './$types'
     import { AppShell, Stack, Button, Group, Text } from '@svelteuidev/core'
+	import { invalidate } from '$app/navigation';
+	import { browser } from '$app/environment';
     export let data: PageData;
+    export let form: ActionData;
+    if (form?.success && browser) {
+        invalidate("/")
+    }
 </script>
 
 <AppShell><slot>
@@ -13,6 +19,7 @@
     <label for="token">Optionally provide a long-lived token to use for auth:</label>
     <input type="text" id="token" name="token" value={data.token}><br>
     <Button>Save</Button>
+    <a href="/">Home</a>
 </form>
 </Stack>
 </slot></AppShell>

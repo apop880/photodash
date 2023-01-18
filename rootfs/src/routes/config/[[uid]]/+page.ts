@@ -9,19 +9,17 @@ type Entity = {
     state: string
 }
 
-export const load = (async ({ data, fetch }) => {
+export const load = (async ({ data, fetch, parent }) => {
     if (browser) {
-        const settingsRes = await fetch("/api/baseSettings");
-        const settings = await settingsRes.json();
-        let token = settings.token;
+        let { hassBaseUrl, token } = await parent();
         if (!token) {
-            const auth = await getHassAuth(settings.hassBaseUrl);
+            const auth = await getHassAuth(hassBaseUrl);
             token = auth.accessToken;
         }
         let statesRes;
         try {
             statesRes = await fetch(
-                `${settings.hassBaseUrl}/api/states`,
+                `${hassBaseUrl}/api/states`,
                 {
                     headers: {
                         "Authorization": `Bearer ${token}`,

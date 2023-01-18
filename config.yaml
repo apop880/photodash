@@ -14,5 +14,7 @@ ports:
   3000/tcp: 8800
 services:
   - mysql:need
+map:
+  - share
 homeassistant_api: true
 webui: http://[HOST]:[PORT:3000]

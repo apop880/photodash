@@ -30,7 +30,7 @@ const saveTokens: SaveTokensFunc = (tokens) => {
 }
 
 const createAndSubscribe = async (set: Subscriber<HassEntities | null>) => {
-	const settings = get(page).data;
+	const settings = get(page).data.baseSettings;
 	let auth;
 	if (settings.token === null) {
 		auth = await getAuth({ hassUrl: settings.hassBaseUrl, loadTokens, saveTokens });

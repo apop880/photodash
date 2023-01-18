@@ -5,8 +5,8 @@
     import { getHassAuth } from '$lib/apistore';
     export let data: PageData;
     let auth;
-    if (!(data.token) && browser) {
-        getHassAuth(data.hassBaseUrl);
+    if (!(data.baseSettings?.token) && browser) {
+        getHassAuth(data.baseSettings!.hassBaseUrl);
     }
 </script>
 

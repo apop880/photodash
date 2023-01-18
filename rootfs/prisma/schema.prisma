@@ -11,9 +11,11 @@ datasource db {
 }
 
 model BaseSettings {
-  uid String @id @default(cuid())
-  param String @unique
-  value String
+  hassBaseUrl String @id
+  token String?
+  googleClientId String?
+  googleClientSecret String?
+  googleRefreshToken String?
 }
 
 model Configuration {

@@ -3,34 +3,41 @@ import type { PageServerLoad, Actions } from "./$types";
 
 export const actions: Actions = {
     default: async ({ request, params }) => {
-        
         const data = await request.formData();
+        const insert = data.get('insert') as string;
         const hassBaseUrl = data.get('hassBaseUrl') as string;
-        const baseUrlResult = await prisma.baseSettings.upsert({
-            create: {
-                param: "hassBaseUrl",
-                value: hassBaseUrl
-            },
-            where: {
-               param : "hassBaseUrl"
-            },
-            update: {
-                value: hassBaseUrl
-            }
-        });
         const token = data.get('token') as string;
-        const tokenResult = await prisma.baseSettings.upsert({
-            create: {
-                param: "token",
-                value: token
-            },
+        const googleClientId = data.get('googleClientId') as string;
+        const googleClientSecret = data.get('googleClientSecret') as string;
+        const googleRefreshToken = data.get('googleRefreshToken') as string;
+
+        if (insert === "true") {
+            await prisma.baseSettings.create({
+                data: {
+                    hassBaseUrl: hassBaseUrl,
+                    token: (token.length > 0) ? token : null,
+                    googleClientId: (googleClientId.length > 0) ? googleClientId : null,
+                    googleClientSecret: (googleClientSecret.length > 0) ? googleClientSecret : null,
+                    googleRefreshToken: (googleRefreshToken.length > 0) ? googleRefreshToken : null
+                }
+            })
+            return { success: true }
+        }
+
+        await prisma.baseSettings.updateMany({
             where: {
-               param : "token"
+                hassBaseUrl: {
+                    not: undefined
+                }
             },
-            update: {
-                value: token
+            data: {
+                hassBaseUrl: hassBaseUrl,
+                token: (token.length > 0) ? token : null,
+                googleClientId: (googleClientId.length > 0) ? googleClientId : null,
+                googleClientSecret: (googleClientSecret.length > 0) ? googleClientSecret : null,
+                googleRefreshToken: (googleRefreshToken.length > 0) ? googleRefreshToken : null
             }
-        });
+        })
         return { success: true }
     }
 }

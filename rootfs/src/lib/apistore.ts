@@ -84,8 +84,13 @@ export const action = (serviceType: string, target: string) => {
 export const getHassAuth = async (hassBaseUrl: string) => {
 	let auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
 	if (auth.expired) {
-		saveTokens(null);
-		auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
+		try {
+			await auth.refreshAccessToken();
+		}
+		catch {
+			saveTokens(null);
+			auth = await getAuth({ hassUrl: hassBaseUrl, loadTokens, saveTokens });
+		}
 	}
 
 	return auth;

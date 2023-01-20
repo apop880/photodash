@@ -8,3 +8,4 @@ rootfs/.svelte-kit
 !.env.example
 rootfs/vite.config.js.timestamp-*
 rootfs/vite.config.ts.timestamp-*
+rootfs/static/share

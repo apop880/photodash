@@ -9,9 +9,9 @@ type Entity = {
     state: string
 }
 
-export const load = (async ({ data, fetch, parent }) => {
+export const load = (async ({ data, fetch }) => {
     if (browser) {
-        let { hassBaseUrl, token } = await parent();
+        let { hassBaseUrl, token } = data;
         if (!token) {
             const auth = await getHassAuth(hassBaseUrl);
             token = auth.accessToken;

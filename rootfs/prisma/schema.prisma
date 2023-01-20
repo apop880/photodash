@@ -24,6 +24,8 @@ model Configuration {
   weatherEntity String?
   backgroundMusicEntity String?
   backgroundMusicFile String?
+  googleAlbumId String?
+  useLocalPhotos Boolean @default(false)
   //views Views[]
 }
 

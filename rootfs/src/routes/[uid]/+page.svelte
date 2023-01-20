@@ -3,6 +3,7 @@
     import { stateStore } from '$lib/apistore'
     import MusicPlayer from './bgmusic.svelte';
     import { AppShell } from '@svelteuidev/core'
+	import Slideshow from './Slideshow.svelte';
     export let data: PageData;
 </script>
 
@@ -10,6 +11,9 @@
 {#if $stateStore !== null}
     {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
         <MusicPlayer entity={data.configuration.backgroundMusicEntity} url={data.configuration.backgroundMusicFile} />
+    {/if}
+    {#if data.configuration?.useLocalPhotos || data.configuration?.googleAlbumId}
+        <Slideshow name={data.configuration.name} googleAlbumId={data.configuration.googleAlbumId} />
     {/if}
 {/if}
 </slot></AppShell>

@@ -1,11 +1,17 @@
 import prisma from "$lib/prisma";
 import type { PageServerLoad, Actions} from "./$types"
 import type { Configuration } from "@prisma/client";
+import { getAlbums } from "$lib/googlePhotos";
 
-export const load = (async ({ params }) => {
+export const load = (async ({ params, parent, fetch }) => {
     const configuration: Configuration = await prisma.configuration.findFirst({where: {uid: params.uid ?? "new"}})
         ?? {name: "", backgroundMusicFile: ""} as Configuration
-    return { configuration }
+    const baseSettings = (await parent()).baseSettings!;
+    let albums: Object[] | string = "Google Photos Not Configured";
+    if (baseSettings.googleClientId && baseSettings.googleClientSecret && baseSettings.googleRefreshToken) {
+        albums = await getAlbums(fetch);
+    }
+    return { configuration, hassBaseUrl: baseSettings.hassBaseUrl, token: baseSettings.token, albums }
 }) satisfies PageServerLoad
 
 export const actions: Actions = {
@@ -16,21 +22,27 @@ export const actions: Actions = {
         const weatherEntity = data.get('weatherEntity');
         const backgroundMusicEntity = data.get('backgroundMusicEntity');
         const backgroundMusicFile = data.get('backgroundMusicFile');
+        const googleAlbumId = data.get('googleAlbumId');
+        const useLocalPhotos = data.get('useLocalPhotos') === "on";
         const result = await prisma.configuration.upsert({
             create: {
-                name: name,
+                name,
                 weatherEntity: weatherEntity as string ?? null,
                 backgroundMusicEntity: backgroundMusicEntity as string ?? null,
-                backgroundMusicFile: backgroundMusicFile as string ?? null
+                backgroundMusicFile: backgroundMusicFile as string ?? null,
+                googleAlbumId: googleAlbumId as string ?? null,
+                useLocalPhotos
             },
             where: {
                 uid: params.uid ?? "new"
             },
             update: {
-                name: name,
+                name,
                 weatherEntity: weatherEntity as string ?? null,
                 backgroundMusicEntity: backgroundMusicEntity as string ?? null,
-                backgroundMusicFile: backgroundMusicFile as string ?? null
+                backgroundMusicFile: backgroundMusicFile as string ?? null,
+                googleAlbumId: googleAlbumId as string ?? null,
+                useLocalPhotos
             }
         })
     }

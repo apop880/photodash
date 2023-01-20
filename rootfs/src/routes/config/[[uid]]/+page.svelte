@@ -30,7 +30,22 @@
                 {/each}
             </select><br>
             <label for="music-file">Background Music File</label>
-            <input type="text" id="music-file" name="backgroundMusicFile" value={data.configuration?.backgroundMusicFile}>
+            <input type="text" id="music-file" name="backgroundMusicFile" value={data.configuration?.backgroundMusicFile}><br>
+            {#if typeof(data.albums) === 'string'}
+                {data.albums}
+            {:else if data.albums.length > 0}
+                <label for="google-album">Google Photo Album</label>
+                <select name="googleAlbumId" id="google-album">
+                    <option value="" selected={data.configuration?.googleAlbumId === null}>None</option>
+                    {#each data.albums as album}
+                        <option value={album.id} selected={data.configuration?.googleAlbumId === album.id}>{album.title}</option>
+                    {/each}
+                </select><br>
+            {:else}
+                Error Loading Photo Albums, or no albums associated with your account.
+            {/if}
+            <input type="checkbox" id="local-photos" name="useLocalPhotos" checked={data.configuration?.useLocalPhotos}>
+            <label for="local-photos">(Home Assistant Add-On Only) Use local photos. Photodash will look in /share/photodash/{data.configuration?.name.length > 0 ? data.configuration?.name : "configurationName"} and display the files in that folder as your background slideshow.</label><br>
             <Button>Save</Button>
         </form>
     {/if}

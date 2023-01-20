@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@google-cloud/local-auth": "^2.1.1",
-    "mkdirp": "^2.1.3"
+    "@google-cloud/local-auth": "^2.1.1"
   }
 }

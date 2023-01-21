@@ -28,6 +28,6 @@ export const GET = (async () => {
         })
       const data = await res.json();
       accessToken = data["access_token"];
-      expireDateTime.setSeconds(new Date().getSeconds() + ((data["expires_in"] - 180) * 1000));
+      expireDateTime.setSeconds(new Date().getSeconds() + (data["expires_in"] - 180));
       return new Response(accessToken);
   }) satisfies RequestHandler

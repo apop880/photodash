@@ -1,8 +1,9 @@
 import prisma from "$lib/prisma";
-import type { PageServerLoad, Actions } from "./$types"
+import type { ExtendedConfiguration } from "$lib/types";
+import type { PageServerLoad } from "./$types"
 
 export const load = (async ({ params }) => {
-    let body = await prisma.configuration.findFirst({where: {uid: params.uid}})
+    let body: ExtendedConfiguration = await prisma.configuration.findFirstOrThrow({where: {uid: params.uid}, include: {disableSlideShow: true}});
     
     return { configuration: body }
 }) satisfies PageServerLoad

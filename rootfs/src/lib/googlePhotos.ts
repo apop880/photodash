@@ -3,6 +3,10 @@ type AlbumRequestBody = {
     albumId: string,
     pageToken?: string
 }
+export type Album = {
+    id: string,
+    title: string
+}
 
 let nextPageToken: null | string = null;
 let w: null | number = null;
@@ -39,7 +43,7 @@ export const getGoogleImages = async (id: string) => {
 export const getAlbums = async (fetch: Function) => {
     const text = await fetch("/api/googleAccessToken");
     const accessToken = await text.text();
-    let albums: Array<Object> = [];
+    let albums: Array<Album> = [];
     let nextPageToken: null | string = null;
     do {
         const res = await fetch(`https://photoslibrary.googleapis.com/v1/albums?pageSize=50${nextPageToken ? `&nextPageToken=${nextPageToken}` : ''}`,
@@ -48,7 +52,7 @@ export const getAlbums = async (fetch: Function) => {
                 "Authorization": `Bearer ${accessToken}`
             }
         });
-        const data: {albums: Array<Object>, nextPageToken?: string} = await res.json();
+        const data: {albums: Array<Album>, nextPageToken?: string} = await res.json();
         albums = [...albums, ...data.albums];
         nextPageToken = data.nextPageToken ?? null
     } while(nextPageToken)

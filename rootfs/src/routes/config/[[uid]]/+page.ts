@@ -11,7 +11,7 @@ type Entity = {
 
 export const load = (async ({ data, fetch }) => {
     if (browser) {
-        let { hassBaseUrl, token } = data;
+        let { hassBaseUrl, token } = data.baseSettings;
         if (!token) {
             const auth = await getHassAuth(hassBaseUrl);
             token = auth.accessToken;

@@ -26,7 +26,16 @@ model Configuration {
   backgroundMusicFile String?
   googleAlbumId String?
   useLocalPhotos Boolean @default(false)
+  disableSlideShow DisableSlideShowConfig[]
   //views Views[]
+}
+
+model DisableSlideShowConfig {
+  uid String @id @default(cuid())
+  configuration Configuration @relation(fields: [configId], references: [uid])
+  configId String
+  entity String
+  state String
 }
 
 // model Views {

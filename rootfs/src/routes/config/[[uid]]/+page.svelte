@@ -2,6 +2,7 @@
     import type { PageData } from './$types';
     import { AppShell, Button } from '@svelteuidev/core'
     export let data: PageData;
+    let newDisableRows = 0;
 </script>
 
 <AppShell><slot>
@@ -31,8 +32,8 @@
             </select><br>
             <label for="music-file">Background Music File</label>
             <input type="text" id="music-file" name="backgroundMusicFile" value={data.configuration?.backgroundMusicFile}><br>
-            {#if typeof(data.albums) === 'string'}
-                {data.albums}
+            {#if !(data.baseSettings.googleClientId)}
+                Google Photos not configured. Go to <a href="/settings">settings</a> to configure.
             {:else if data.albums.length > 0}
                 <label for="google-album">Google Photo Album</label>
                 <select name="googleAlbumId" id="google-album">
@@ -42,10 +43,34 @@
                     {/each}
                 </select><br>
             {:else}
-                Error Loading Photo Albums, or no albums associated with your account.
+                Error loading photo albums from Google, or no albums associated with your account.
             {/if}
             <input type="checkbox" id="local-photos" name="useLocalPhotos" checked={data.configuration?.useLocalPhotos}>
-            <label for="local-photos">(Home Assistant Add-On Only) Use local photos. Photodash will look in /share/photodash/{data.configuration?.name.length > 0 ? data.configuration?.name : "configurationName"} and display the files in that folder as your background slideshow.</label><br>
+            <label for="local-photos">Use local photos. Photodash will look in /share/photodash/{data.configuration?.name.length > 0 ? data.configuration?.name : "configurationName"} and display the files in that folder as your background slideshow.</label><br>
+            <h3>Disable Slideshow on Entity State:</h3>
+            {#each data.configuration?.disableSlideShow as d, idx}
+                <input type="checkbox" id={"delete_"+d.uid} name={"delete_"+d.uid}>
+                <label for={"entity_"+d.uid}>Entity</label>
+                <select name={"entity_"+d.uid} id={"entity_"+d.uid}>
+                    {#each data.entities as entity}
+                        <option value={entity} selected={d.entity === entity}>{entity}</option>
+                    {/each}
+                </select><br>
+                <label for={"state"+d.uid}>State to Match</label>
+                <input type="text" id={"state"+d.uid} name={"state"+d.uid} value={d.state}><br>
+            {/each}
+            <button on:click|preventDefault={() => newDisableRows++}>Add</button>
+            {#each Array(newDisableRows) as _, idx}
+                <label for={"new_entity_"+ idx}>Entity</label>
+                <select name={"new_entity_"+idx} id={"new_entity_"+idx}>
+                    <option value=""></option>
+                    {#each data.entities as entity}
+                        <option value={entity}>{entity}</option>
+                    {/each}
+                </select><br>
+                <label for={"new_state"+idx}>State to Match</label>
+                <input type="text" id={"new_state"+idx} name={"new_state"+idx}><br>
+            {/each}
             <Button>Save</Button>
         </form>
     {/if}

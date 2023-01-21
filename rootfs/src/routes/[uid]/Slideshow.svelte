@@ -4,7 +4,7 @@
     import { getGoogleImages } from '$lib/googlePhotos';
     export let name: string;
     export let googleAlbumId: string | null;
-    let x = 2;
+    let x = 2; //index positions 0 and 1 are hardcoded for the initial component load, so we just start at 2 for additional photos
     let images: Array<string> = [];
     let nextImages: Array<string> = [];
     let imgA = ''

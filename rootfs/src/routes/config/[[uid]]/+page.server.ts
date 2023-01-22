@@ -25,13 +25,13 @@ export const actions: Actions = {
         const googleAlbumId = data.get('googleAlbumId');
         const useLocalPhotos = data.get('useLocalPhotos') === "on";
         let newDisableRows: Array<{configId: string, entity: string, state: string}> = [];
+        let disableRowsToDelete: Array<string> = [];
         let nextEntity = "";
         for (const [key, value] of data.entries()) {
             if (key.startsWith("new_entity")) {
-                newDisableRows = [...newDisableRows, {configId: params.uid as string, entity: value as string, state: ''}]
-            }
-            else if (key.startsWith("new_state")) {
-                newDisableRows[newDisableRows.length - 1].state = value as string;
+                const stateValue = data.get(`new_state_${key.split("_")[2]}`) as string ?? null;
+                if ((value as string ?? null !== null) && stateValue !== null)
+                    newDisableRows = [...newDisableRows, {configId: params.uid as string, entity: value as string, state: stateValue}]
             }
             else if (key.startsWith("delete") && value === "on") {
                 await prisma.disableSlideShowConfig.delete({

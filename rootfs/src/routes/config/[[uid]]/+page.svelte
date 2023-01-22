@@ -68,8 +68,8 @@
                         <option value={entity}>{entity}</option>
                     {/each}
                 </select><br>
-                <label for={"new_state"+idx}>State to Match</label>
-                <input type="text" id={"new_state"+idx} name={"new_state"+idx}><br>
+                <label for={"new_state_"+idx}>State to Match</label>
+                <input type="text" id={"new_state_"+idx} name={"new_state_"+idx}><br>
             {/each}
             <Button>Save</Button>
         </form>

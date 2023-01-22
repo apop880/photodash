@@ -25,7 +25,6 @@ export const actions: Actions = {
         const googleAlbumId = data.get('googleAlbumId');
         const useLocalPhotos = data.get('useLocalPhotos') === "on";
         let newDisableRows: Array<{configId: string, entity: string, state: string}> = [];
-        let disableRowsToDelete: Array<string> = [];
         let nextEntity = "";
         for (const [key, value] of data.entries()) {
             if (key.startsWith("new_entity")) {

@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { PageData, ActionData } from './$types'
-    import { AppShell, Stack, Button } from '@svelteuidev/core'
 	import { invalidate } from '$app/navigation';
 	import { browser } from '$app/environment';
     export let data: PageData;
@@ -10,8 +9,6 @@
     }
 </script>
 
-<AppShell><slot>
-<Stack>
 <h1>Global Settings</h1>
 <form method="POST">
     <input type="hidden" id="insert" name="insert" value={data.baseSettings === null}>
@@ -26,8 +23,6 @@
     <input type="text" id="googleClientSecret" name="googleClientSecret" value={data.baseSettings?.googleClientSecret ?? null}><br>
     <label for="googleRefreshToken">Google API Refresh Token:</label>
     <input type="text" id="googleRefreshToken" name="googleRefreshToken" value={data.baseSettings?.googleRefreshToken ?? null}><br>
-    <Button>Save</Button>
+    <button>Save</button>
     <a href="/">Home</a>
 </form>
-</Stack>
-</slot></AppShell>

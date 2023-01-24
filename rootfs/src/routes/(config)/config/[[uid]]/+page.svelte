@@ -1,11 +1,9 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import { AppShell, Button } from '@svelteuidev/core'
     export let data: PageData;
     let newDisableRows = 0;
 </script>
 
-<AppShell><slot>
     {#if "error" in data}{data.error}
     {:else if data.entities?.length === 0}Loading...
     {:else}
@@ -71,7 +69,6 @@
                 <label for={"new_state_"+idx}>State to Match</label>
                 <input type="text" id={"new_state_"+idx} name={"new_state_"+idx}><br>
             {/each}
-            <Button>Save</Button>
+            <button>Save</button>
         </form>
     {/if}
-</slot></AppShell>

@@ -56,6 +56,7 @@
         left: 0px;
         color: transparent;
         z-index: -1;
+        background-color: rgb(51, 51, 51);
     }
     .image {
         height: 100%;

@@ -2,8 +2,8 @@
     import type { PageData } from './$types';
     import { stateStore } from '$lib/apistore'
     import MusicPlayer from './bgmusic.svelte';
-    import { AppShell } from '@svelteuidev/core'
 	import Slideshow from './Slideshow.svelte';
+	import Topbar from './topbar.svelte';
     export let data: PageData;
     let showSlideShow = true;
     $: {
@@ -19,7 +19,8 @@
     }
 </script>
 
-<AppShell><slot>
+<main>
+<Topbar />
 {#if $stateStore !== null}
     {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
         <MusicPlayer entity={data.configuration.backgroundMusicEntity} url={data.configuration.backgroundMusicFile} />
@@ -32,11 +33,4 @@
         <Slideshow name={data.configuration.name} googleAlbumId={data.configuration.googleAlbumId} />
     {/if}
 {/if}
-</slot></AppShell>
-
-<style>
-    :global(body) {
-        background-color: rgb(51, 51, 51);
-        overflow-y: hidden;
-    }
-</style>
+</main>

@@ -12,6 +12,6 @@
 	  </a>
 	</div>
   </div>
-<div class="container mx-auto mt-2">
+<div class="container mx-auto mt-2 px-4">
   <slot />
 </div>

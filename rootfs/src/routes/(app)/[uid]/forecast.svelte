@@ -17,13 +17,13 @@
 </script>
 
 {#if $stateStore}
-<div class="weather-extended" on:click in:fly="{{ y: -200, duration: 500, delay: 750 }}" out:fly="{{ y: -200, duration: 500 }}">
+<button class="weather-extended" on:click on:keydown in:fly="{{ y: -200, duration: 500, delay: 750 }}" out:fly="{{ y: -200, duration: 500 }}">
     {#each $stateStore[$page.data.configuration.weatherEntity].attributes.forecast.slice(0, 3) as forecast, idx}
         <div>{getDay(idx)}</div>
         <div><iconify-icon icon={CONDITION_PICTURES[forecast.condition]}></iconify-icon></div>
         <div>{roundTemp(forecast.temperature)}&deg; / {roundTemp(forecast.templow)}&deg;</div>
     {/each}
-</div>
+</button>
 {/if}
 
 <style>

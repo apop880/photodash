@@ -2,12 +2,12 @@
 	import '../../app.postcss';
 	import 'iconify-icon';
 </script>
-<div class="navbar bg-stone-500">
+<div class="navbar bg-primary">
 	<div class="flex-1">
-	  <a href="/" class="btn btn-ghost normal-case text-xl text-gray-100">Photodash</a>
+	  <a href="/" class="btn btn-ghost normal-case text-xl text-primary-content">Photodash</a>
 	</div>
 	<div class="flex-none">
-	  <a href="/settings" class="btn btn-square btn-ghost text-gray-100">
+	  <a href="/settings" class="btn btn-square btn-ghost text-primary-content">
 		<iconify-icon icon="ion:settings-outline" height="36"></iconify-icon>
 	  </a>
 	</div>

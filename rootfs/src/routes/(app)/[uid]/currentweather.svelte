@@ -6,7 +6,7 @@
 </script>
 
 {#if $stateStore && $page.data.configuration.weatherEntity}
-<button class="weather" on:click>
+<button class="weather mx-2.5 mb-2.5" on:click>
     <iconify-icon icon={CONDITION_PICTURES[$stateStore[$page.data.configuration.weatherEntity].state]}></iconify-icon>
     {$stateStore[$page.data.configuration.weatherEntity].attributes.temperature + $stateStore[$page.data.configuration.weatherEntity].attributes.temperature_unit}
 </button>
@@ -15,9 +15,7 @@
 <style>
     .weather {
         justify-self: end;
-        vertical-align: top;
         font-size: 35pt;
-        margin: 10px;
         font-weight: 600;
         text-shadow: 2px 2px #020101;
         -webkit-text-stroke: 1px black;

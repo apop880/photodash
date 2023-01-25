@@ -19,14 +19,14 @@
 <div class="grid grid-cols-6 gap-x-2 gap-y-4 items-center max-w-fit mx-auto">
   {#if loaded}
   <div class="text-lg font-bold col-span-5">Existing Configurations</div>
-  <div><a class="btn btn-filled-primary" href="/config">Create New</a></div>
+  <div><a class="btn btn-primary" href="/config">Create New</a></div>
   <hr class="col-span-6 h-1 bg-gray-400 border-0">
   {#each data.configurations as config}
     <div class="col-span-3 font-semibold">{config.name}</div>
-    <a href={`/${config.uid}`} class="btn btn-filled-primary">
+    <a href={`/${config.uid}`} class="btn btn-primary">
       Load
     </a>
-    <a href={`/config/${config.uid}`} class="btn btn-filled-primary">
+    <a href={`/config/${config.uid}`} class="btn btn-primary">
       Edit
     </a>
     <div class="btn btn-disabled">Clone</div>

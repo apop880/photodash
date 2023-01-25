@@ -3,7 +3,7 @@
     import Weather from './weather.svelte';
 </script>
 
-<div>
+<div class="z-10 relative pt-2">
     <Clock />
     <Weather />
 </div>

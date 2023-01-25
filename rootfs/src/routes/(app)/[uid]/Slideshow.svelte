@@ -4,6 +4,7 @@
     import { getGoogleImages } from '$lib/googlePhotos';
     export let name: string;
     export let googleAlbumId: string | null;
+    let fadeParams = {delay: 2000, duration: 1000};
     let x = 2; //index positions 0 and 1 are hardcoded for the initial component load, so we just start at 2 for additional photos
     let images: Array<string> = [];
     let nextImages: Array<string> = [];
@@ -72,9 +73,9 @@
 <div id="backgroundSlider">
     {#await getImages() then}
     {#if showA && imgA !== ''}
-    <div in:fade="{{delay: 2000, duration: 1000}}" out:fade|local="{{delay: 2000, duration: 1000}}"  class="image" style="background-image: url({imgA})"></div>
+    <div in:fade="{fadeParams}" out:fade|local="{fadeParams}"  class="image" style="background-image: url({imgA})"></div>
     {:else if imgB !== ''}
-    <div in:fade="{{delay: 2000, duration: 1000}}" out:fade|local="{{delay: 2000, duration: 1000}}" class="image" style="background-image: url({imgB})"></div>
+    <div in:fade="{fadeParams}" out:fade|local="{fadeParams}" class="image" style="background-image: url({imgB})"></div>
     {/if}
     {/await}
 </div>

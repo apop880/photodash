@@ -5,7 +5,21 @@
 	import Slideshow from './Slideshow.svelte';
 	import Topbar from './topbar.svelte';
     export let data: PageData;
+    let curview = null;
     let showSlideShow = true;
+    let showMenu = false;
+    let timer: string | number | NodeJS.Timeout | undefined;
+
+    const mainClick = () => {
+        console.log("mainClick")
+        clearTimeout(timer);
+        showMenu == true;
+        timer = setTimeout(() => {
+            showMenu = false;
+            curview = null;
+        })
+    }
+
     $: {
         data.configuration.disableSlideShow.some((d, idx) => {
             if ($stateStore?.[d.entity].state === d.state) {
@@ -19,16 +33,19 @@
     }
 </script>
 
-<Topbar />
-{#if $stateStore !== null}
-    {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
-        <MusicPlayer entity={data.configuration.backgroundMusicEntity} url={data.configuration.backgroundMusicFile} />
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<main class="h-screen w-screen overflow-y-hidden bg-transparent" on:click={mainClick}>
+    <Topbar />
+    {#if $stateStore !== null}
+        {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
+            <MusicPlayer entity={data.configuration.backgroundMusicEntity} url={data.configuration.backgroundMusicFile} />
+        {/if}
+        {#if 
+            (data.configuration?.useLocalPhotos || data.configuration?.googleAlbumId)
+            &&
+            showSlideShow
+        }
+            <Slideshow name={data.configuration.name} googleAlbumId={data.configuration.googleAlbumId} />
+        {/if}
     {/if}
-    {#if 
-        (data.configuration?.useLocalPhotos || data.configuration?.googleAlbumId)
-        &&
-        showSlideShow
-    }
-        <Slideshow name={data.configuration.name} googleAlbumId={data.configuration.googleAlbumId} />
-    {/if}
-{/if}
+</main>

@@ -17,7 +17,7 @@
 </script>
 
 {#if $stateStore}
-<button class="weather-extended" on:click on:keydown in:fly="{{ y: -200, duration: 500, delay: 750 }}" out:fly="{{ y: -200, duration: 500 }}">
+<button class="weather-extended" on:click|stopPropagation on:keydown in:fly="{{ y: -200, duration: 500, delay: 750 }}" out:fly="{{ y: -200, duration: 500 }}">
     {#each $stateStore[$page.data.configuration.weatherEntity].attributes.forecast.slice(0, 3) as forecast, idx}
         <div>{getDay(idx)}</div>
         <div class="text-[26pt]"><iconify-icon icon={CONDITION_PICTURES[forecast.condition]}></iconify-icon></div>

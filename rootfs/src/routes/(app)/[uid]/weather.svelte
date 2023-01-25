@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { stateStore } from '$lib/apistore';
     import { flip } from 'svelte/animate';
     import { circIn } from 'svelte/easing';
@@ -9,7 +9,7 @@
         CurrentWeather
     ]
 
-    let timer;
+    let timer: string | number | NodeJS.Timeout | undefined;
 
     function toggleForecast() {
         clearTimeout(timer);

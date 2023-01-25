@@ -2,8 +2,8 @@
     import { stateStore } from '$lib/apistore';
     import { page } from '$app/stores';
     import { fly, fade } from 'svelte/transition';
+    import { CONDITION_PICTURES } from '$lib/const';
     import 'iconify-icon';
-    export let CONDITION_PICTURES;
     const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     function getDay(key) {

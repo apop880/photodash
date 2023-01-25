@@ -1,8 +1,8 @@
 <script>
     import { stateStore } from '$lib/apistore';
     import { page } from '$app/stores';
+    import { CONDITION_PICTURES } from '$lib/const';
     import 'iconify-icon';
-    export let CONDITION_PICTURES;
 </script>
 
 {#if $stateStore && $page.data.configuration.weatherEntity}

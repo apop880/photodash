@@ -5,24 +5,6 @@
     import CurrentWeather from './currentweather.svelte';
     import Forecast from './forecast.svelte';
 
-    const CONDITION_PICTURES = {
-        "clear-night": "wi:night-clear",
-        "cloudy": "wi:cloudy",
-        "exceptional": "wi:day-sunny",
-        "fog": "wi:fog",
-        "hail": "wi:hail",
-        "lightning": "wi:lightning",
-        "lightning-rainy": "wi:night-lightning",
-        "partlycloudy": "wi:day-cloudy",
-        "pouring": "wi:rain",
-        "rainy": "wi:showers",
-        "snowy": "wi:snow",
-        "snowy-rainy": "wi:rain-mix",
-        "sunny": "wi:day-sunny",
-        "windy": "wi:cloudy-windy",
-        "windy-variant": "wi:windy"
-    }
-
     let componentArray = [
         CurrentWeather
     ]
@@ -46,7 +28,7 @@
 {#if $stateStore !== null}
 {#each componentArray as component, key(component)}
 <div animate:flip="{{duration: 400, easing: circIn}}" style="justify-self:end;">
-<svelte:component this={component} on:click="{() => toggleForecast()}" {CONDITION_PICTURES} />
+<svelte:component this={component} on:click="{() => toggleForecast()}" />
 </div>
 {/each}
 {/if}

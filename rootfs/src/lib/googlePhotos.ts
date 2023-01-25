@@ -56,5 +56,5 @@ export const getAlbums = async (fetch: Function) => {
         albums = [...albums, ...data.albums];
         nextPageToken = data.nextPageToken ?? null
     } while(nextPageToken)
-    return albums;
+    return albums.sort((a, b) => (a.title > b.title) ? 1 : -1);
 }

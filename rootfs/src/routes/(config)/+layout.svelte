@@ -2,7 +2,7 @@
 	import '../../app.postcss';
 	import 'iconify-icon';
 </script>
-<div class="navbar bg-primary">
+<div class="navbar bg-primary shadow-lg shadow-primary-content">
 	<div class="flex-1">
 	  <a href="/" class="btn btn-ghost normal-case text-xl text-primary-content">Photodash</a>
 	</div>
@@ -12,6 +12,6 @@
 	  </a>
 	</div>
   </div>
-<div class="container mx-auto mt-2 px-4">
+<div class="container mx-auto mt-6 px-4">
   <slot />
 </div>

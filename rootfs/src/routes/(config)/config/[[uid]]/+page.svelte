@@ -43,9 +43,11 @@
             {:else}
                 Error loading photo albums from Google, or no albums associated with your account.
             {/if}
-            <input type="checkbox" id="local-photos" name="useLocalPhotos" checked={data.configuration?.useLocalPhotos}>
-            <label for="local-photos">Use local photos. Photodash will look in /share/photodash/{data.configuration?.name.length > 0 ? data.configuration?.name : "configurationName"} and display the files in that folder as your background slideshow.</label><br>
-            <h3>Disable Slideshow on Entity State:</h3>
+            <div class="flex my-2 gap-1">
+                <input type="checkbox" id="local-photos" name="useLocalPhotos" checked={data.configuration?.useLocalPhotos}>
+                <span class="label-text">Use local photos. Photodash will look in <code class="bg-primary-content">/share/photodash/{data.configuration?.name.length > 0 ? data.configuration?.name : "configurationName"}</code> and display the files in that folder as your background slideshow.</span> 
+              </div>
+            <h3>Disable Slideshow on Entity States:</h3>
             {#each data.configuration?.disableSlideShow as d, idx}
                 <input type="checkbox" id={"delete_"+d.uid} name={"delete_"+d.uid}>
                 <label for={"entity_"+d.uid}>Entity</label>
@@ -57,7 +59,7 @@
                 <label for={"state"+d.uid}>State to Match</label>
                 <input type="text" id={"state"+d.uid} name={"state"+d.uid} value={d.state}><br>
             {/each}
-            <button on:click|preventDefault={() => newDisableRows++}>Add</button>
+            <button class="btn btn-primary" on:click|preventDefault={() => newDisableRows++}>Add State</button>
             {#each Array(newDisableRows) as _, idx}
                 <label for={"new_entity_"+ idx}>Entity</label>
                 <select name={"new_entity_"+idx} id={"new_entity_"+idx}>
@@ -69,6 +71,22 @@
                 <label for={"new_state_"+idx}>State to Match</label>
                 <input type="text" id={"new_state_"+idx} name={"new_state_"+idx}><br>
             {/each}
-            <button>Save</button>
+            <hr class="col-span-6 h-1 bg-gray-400 border-0 my-4">
+            <button class="btn btn-primary my-2">Save Changes</button>
         </form>
     {/if}
+
+    <style lang="postcss">
+        label {
+            @apply label;
+        }
+        input:not([type=checkbox]) {
+            @apply input input-bordered w-full bg-secondary-focus;
+        }
+        select {
+            @apply select select-bordered w-full bg-secondary-focus;
+        }
+        input[type=checkbox] {
+            @apply checkbox;
+        }
+    </style>

@@ -20,7 +20,7 @@
 <button class="weather-extended" on:click on:keydown in:fly="{{ y: -200, duration: 500, delay: 750 }}" out:fly="{{ y: -200, duration: 500 }}">
     {#each $stateStore[$page.data.configuration.weatherEntity].attributes.forecast.slice(0, 3) as forecast, idx}
         <div>{getDay(idx)}</div>
-        <div><iconify-icon icon={CONDITION_PICTURES[forecast.condition]}></iconify-icon></div>
+        <div class="text-[26pt]"><iconify-icon icon={CONDITION_PICTURES[forecast.condition]}></iconify-icon></div>
         <div>{roundTemp(forecast.temperature)}&deg; / {roundTemp(forecast.templow)}&deg;</div>
     {/each}
 </button>
@@ -39,7 +39,7 @@
         grid-template-columns: repeat(3, 1fr);
         grid-auto-flow: column;
         grid-column-gap: 10px;
-        grid-row-gap: 10px;
+        grid-row-gap: 5px;
         text-align: center;
         background-color: rgba(158, 153, 153, 0.825);
         border-radius: 20px;

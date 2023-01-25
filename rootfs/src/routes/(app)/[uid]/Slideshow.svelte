@@ -72,9 +72,9 @@
 <div id="backgroundSlider">
     {#await getImages() then}
     {#if showA && imgA !== ''}
-    <div transition:fade|local="{{delay: 2000, duration: 1000}}"  class="image" style="background-image: url({imgA})"></div>
+    <div in:fade="{{delay: 2000, duration: 1000}}" out:fade|local="{{delay: 2000, duration: 1000}}"  class="image" style="background-image: url({imgA})"></div>
     {:else if imgB !== ''}
-    <div transition:fade|local="{{delay: 2000, duration: 1000}}" class="image" style="background-image: url({imgB})"></div>
+    <div in:fade="{{delay: 2000, duration: 1000}}" out:fade|local="{{delay: 2000, duration: 1000}}" class="image" style="background-image: url({imgB})"></div>
     {/if}
     {/await}
 </div>

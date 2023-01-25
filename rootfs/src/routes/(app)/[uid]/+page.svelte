@@ -19,7 +19,6 @@
     }
 </script>
 
-<main>
 <Topbar />
 {#if $stateStore !== null}
     {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
@@ -33,4 +32,3 @@
         <Slideshow name={data.configuration.name} googleAlbumId={data.configuration.googleAlbumId} />
     {/if}
 {/if}
-</main>

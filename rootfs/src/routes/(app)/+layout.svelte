@@ -3,10 +3,6 @@
 	import 'iconify-icon';
 </script>
 
-<slot />
-
-<style>
-    :global(body) {
-        overflow-y: hidden;
-    }
-</style>
+<main class="h-screen w-screen overflow-y-hidden">
+    <slot />
+</main>

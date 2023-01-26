@@ -7,7 +7,6 @@
 	import Topbar from './topbar.svelte';
     export let data: PageData;
     let curview = null;
-    let showSlideShow = true;
     let showMenu = false;
     let showToolbar = false;
     let timer: string | number | NodeJS.Timeout | undefined;
@@ -28,18 +27,6 @@
         else {
             showToolbar = false;
         }
-    }
-
-    $: {
-        data.configuration.disableSlideShow.some((d, idx) => {
-            if ($stateStore?.[d.entity].state === d.state) {
-                showSlideShow = false;
-                return true; //short-circuit the evaluation if any criteria met for disabling
-            }
-            else if (idx === data.configuration.disableSlideShow.length - 1) {
-                showSlideShow = true; //we are at the end of the array and no criteria met to disable, so make sure it's enabled
-            }
-        })
     }
 </script>
 
@@ -65,7 +52,7 @@
         {#if 
             (data.configuration?.useLocalPhotos || data.configuration?.googleAlbumId)
             &&
-            showSlideShow
+            data.configuration.disableSlideShow.every(d => $stateStore?.[d.entity].state !== d.state)
         }
             <Slideshow name={data.configuration.name} googleAlbumId={data.configuration.googleAlbumId} />
         {/if}

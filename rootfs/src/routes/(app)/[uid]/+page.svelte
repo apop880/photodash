@@ -48,6 +48,8 @@
             <Slideshow name={data.configuration.name} googleAlbumId={data.configuration.googleAlbumId} />
         {/if}
     {:else}
-        <div class="btn loading mx-auto container m-5 text-2xl">Connecting...</div>
+        <div class="flex w-full h-full items-center justify-center">
+            <div class="btn loading btn-lg">Connecting...</div>
+        </div>
     {/if}
 </main>

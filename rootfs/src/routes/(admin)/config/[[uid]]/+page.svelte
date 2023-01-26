@@ -12,7 +12,7 @@
             <input type="text" id="name" name="name" value={data.configuration?.name} required>
             <label for="weather-entity">Weather Entity</label>
             <select name="weatherEntity" id="weather-entity">
-                <option value="" selected={data.configuration?.weatherEntity === null}>None</option>
+                <option value="" selected={data.configuration?.weatherEntity === null}>None (Disable weather)</option>
                 {#each data.entities as entity}
                     {#if entity.startsWith('weather')}
                         <option value={entity} selected={data.configuration?.weatherEntity === entity}>{entity}</option>
@@ -21,7 +21,7 @@
             </select><br>
             <label for="music-entity">Background Music Entity</label>
             <select name="backgroundMusicEntity" id="music-entity">
-                <option value="" selected={data.configuration?.backgroundMusicEntity === null}>None</option>
+                <option value="" selected={data.configuration?.backgroundMusicEntity === null}>None (Disable background audio player)</option>
                 {#each data.entities as entity}
                     {#if entity.startsWith('input_boolean')}
                         <option value={entity} selected={data.configuration?.backgroundMusicEntity === entity}>{entity}</option>
@@ -35,7 +35,7 @@
             {:else if data.albums.length > 0}
                 <label for="google-album">Google Photo Album</label>
                 <select name="googleAlbumId" id="google-album">
-                    <option value="" selected={data.configuration?.googleAlbumId === null}>None</option>
+                    <option value="" selected={data.configuration?.googleAlbumId === null}>None (Disable Google Photos)</option>
                     {#each data.albums as album}
                         <option value={album.id} selected={data.configuration?.googleAlbumId === album.id}>{album.title}</option>
                     {/each}

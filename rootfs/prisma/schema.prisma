@@ -27,7 +27,7 @@ model Configuration {
   googleAlbumId String?
   useLocalPhotos Boolean @default(false)
   disableSlideShow DisableSlideShowConfig[]
-  //views Views[]
+  views Json?
 }
 
 model DisableSlideShowConfig {
@@ -37,7 +37,3 @@ model DisableSlideShowConfig {
   entity String
   state String
 }
-
-// model Views {
-
-// }

@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { PageData } from './$types';
+    import { page } from '$app/stores';
     import { stateStore } from '$lib/apistore'
     import { swipe } from 'svelte-gestures';
     //import Grid from 'svelte-grid-extended';
@@ -21,12 +22,13 @@
     let itemSize = {height: 70}*/
 
     const handleClick = () => {
+        console.log("click!")
         clearTimeout(timer);
-        showMenu == true;
+        showMenu = true;
         timer = setTimeout(() => {
             showMenu = false;
-            curview = null;
-        })
+            curView = null;
+        }, 30000)
     }
 
     const handleSwipe = (e: CustomEvent) => {
@@ -37,6 +39,34 @@
             showNavbar = false;
         }
     }
+
+    const handleAddView = (e) => {
+        data.configuration.views = [...data.configuration.views, {icon: e.detail.newView}]
+        fetch("api/saveViews", {
+            method: "POST",
+            body: JSON.stringify({
+                uid: $page.params.uid,
+                views: data.configuration.views
+            })
+        })
+    }
+
+    function handleMessage(e) {
+		clearTimeout(timer);
+		if(curView === e.detail.newView) {
+			curView = null;
+			timer = setTimeout(() => showMenu = false, 3000)
+		}
+		else {
+			timer = setTimeout(() => {
+				showMenu = false;
+				curView = null;
+			}, 30000)
+			curView = e.detail.newView;
+		}
+	}
+
+    $: console.log("showMenu",showMenu)
 </script>
 
 {#if showNavbar}
@@ -47,7 +77,7 @@
 <main class="h-screen w-screen overflow-y-hidden bg-transparent grid grid-rows-[80px_1fr_100px] relative z-10" on:click={handleClick} use:swipe={{ timeframe: 300, minSwipeDistance: 50, touchAction: 'none' }} on:swipe={handleSwipe}>
     <Topbar />
     <div> </div>
-    <Menu {curView} />
+    <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:message={handleMessage} />
     
     <!--<Grid class="relative z-30" cols={10} rows={8} bind:items={items} {itemSize} let:item>
         <div class="bg-primary h-full">{item.id}</div>

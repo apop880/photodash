@@ -4,35 +4,81 @@
     import { spring } from 'svelte/motion';
     import { fly } from 'svelte/transition';
     import { elasticInOut } from 'svelte/easing'
+    export let showMenu;
+    export let views;
     export let curView;
 
+    let isModalOpen = false;
+    let newIcon = "";
     let size = spring(1);
 
     const dispatch = createEventDispatcher();
 
+    function clickCheck(e: Event) {
+        if (e.target.id === "outside") {
+            isModalOpen = false;
+        }
+    }
+
+    function onSubmit(e) {
+        const formData = new FormData(e.target);
+
+        dispatch("addview", {
+            newView: formData.get('icon')
+        })
+        e.target.reset();
+        isModalOpen = false;
+    }
+
     function menuClick(view) {
         dispatch("message", {
-            newView: view,
+            newView: view+1,
         });
     }
+
+    $: console.log(curView)
 </script>
 
-<div class="z-10 h-16 absolute bottom-3 w-screen flex justify-center">
-    <!--{#each views as item, index}
+{#if ($editMode || showMenu)}
+<div class="z-10 h-16 absolute bottom-3 w-screen flex justify-center gap-1">
+    {#each views.slice(1) as item, index}
         <button
-            class:active={curView === index}
+            class="btn btn-circle btn-lg border-base-200 {curView === index+1 ? "btn-primary" : "btn-secondary"}"
             transition:fly="{{ y: 80, duration: 700, delay: 150*index, easing: elasticInOut }}"
             on:click={() => menuClick(index)}
             on:touchstart="{() => size.set(1.1)}"
             on:touchend="{() => size.set(1)}"
             style="transform: scale({$size})">
-            <IconifyIcon icon="{item.icon}" height="38" />
+            <iconify-icon icon="{item.icon}" height="36"></iconify-icon>
         </button>
-    {/each}-->
+    {/each}
     {#if $editMode}
-    <button class="btn btn-circle btn-lg btn-success border-base-200"><iconify-icon icon="material-symbols:add-box-outline-rounded" height="36"></iconify-icon></button>
+    <button class="btn btn-circle btn-lg btn-success border-base-200" on:click={() => isModalOpen = true}><iconify-icon icon="material-symbols:add-box-outline-rounded" height="36"></iconify-icon></button>
     {/if}
 </div>
+{/if}
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div id="outside" class="modal" class:modal-open={isModalOpen} on:click={clickCheck}>
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Add a View</h3>
+      <form on:submit|preventDefault={onSubmit}>
+      <div class="form-control w-full">
+        <label class="label" for="icon">
+          <span class="label-text">Enter an Iconify icon name<br>(example: <code>material-symbols:lightbulb-rounded</code>)</span>
+        </label>
+        <input name="icon" type="text" id="icon" class="input input-bordered w-full" on:input={() => newIcon} />
+        <label class="label" for="icon">
+            <span class="label-text-alt"><a target="_blank" href="https://icon-sets.iconify.design/" rel="noreferrer" class="link link-primary">Click here to search the Iconify library</a></span>
+        </label>
+      </div>
+      <div class="modal-action">
+        <button type="reset" class="btn btn-error" on:click={()=>isModalOpen = false}>Cancel</button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+      </form>
+    </div>
+  </div>
 
 <style>
     .menu {

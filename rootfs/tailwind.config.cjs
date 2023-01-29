@@ -30,7 +30,7 @@ const config = {
 				 'base-content' : '#ebecf0',
 	  
 				 'info' : '#66c7ff',
-				 'success' : '#87cf3a',
+				 'success' : '#5fbd33',
 				 'warning' : '#e1d460',
 				 'error' : '#ff6b6b',
 	  

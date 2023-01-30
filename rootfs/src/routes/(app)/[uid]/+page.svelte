@@ -2,6 +2,7 @@
     import type { PageData } from './$types';
     import { page } from '$app/stores';
     import { stateStore } from '$lib/apistore'
+    import { editMode } from '$lib/editorstore';
     import { swipe } from 'svelte-gestures';
     //import Grid from 'svelte-grid-extended';
     import Navbar from '$lib/components/Navbar.svelte';
@@ -9,8 +10,9 @@
 	import Slideshow from './Slideshow.svelte';
 	import Topbar from './topbar.svelte';
 	import Menu from './Menu.svelte';
+	import View from './View.svelte';
     export let data: PageData;
-    let curView = null;
+    let curView: null | number = null;
     let showMenu = false;
     let showNavbar = false;
     let timer: string | number | NodeJS.Timeout | undefined;
@@ -21,13 +23,20 @@
 	];
     let itemSize = {height: 70}*/
 
+    $: if($editMode === false) {
+        showMenu = false;
+        curView = null;
+    }
+
     const handleClick = () => {
-        console.log("click!")
         clearTimeout(timer);
         showMenu = true;
+        if (curView === null) {
+            curView = 0;
+        }
         timer = setTimeout(() => {
             showMenu = false;
-            curView = null;
+            if (!$editMode) curView = null;
         }, 30000)
     }
 
@@ -40,8 +49,7 @@
         }
     }
 
-    const handleAddView = (e) => {
-        data.configuration.views = [...data.configuration.views, {icon: e.detail.newView}]
+    const saveViews = () => {
         fetch("api/saveViews", {
             method: "POST",
             body: JSON.stringify({
@@ -49,6 +57,17 @@
                 views: data.configuration.views
             })
         })
+    }
+
+    const handleAddView = (e) => {
+        data.configuration.views = [...data.configuration.views, {icon: e.detail.newView}]
+        saveViews();
+    }
+
+    const handleEditView = (e) => {
+        console.log(e.detail.items);
+        data.configuration.views[curView].items = e.detail.items;
+        saveViews();
     }
 
     function handleMessage(e) {
@@ -65,8 +84,6 @@
 			curView = e.detail.newView;
 		}
 	}
-
-    $: console.log("showMenu",showMenu)
 </script>
 
 {#if showNavbar}
@@ -76,7 +93,9 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <main class="h-screen w-screen overflow-y-hidden bg-transparent grid grid-rows-[80px_1fr_100px] relative z-10" on:click={handleClick} use:swipe={{ timeframe: 300, minSwipeDistance: 50, touchAction: 'none' }} on:swipe={handleSwipe}>
     <Topbar />
-    <div> </div>
+    {#if curView}
+        <View view={data.configuration.views[curView]} on:editview={handleEditView} />
+    {/if}
     <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:message={handleMessage} />
     
     <!--<Grid class="relative z-30" cols={10} rows={8} bind:items={items} {itemSize} let:item>

@@ -14,12 +14,6 @@
 
     const dispatch = createEventDispatcher();
 
-    function clickCheck(e: Event) {
-        if (e.target.id === "outside") {
-            isModalOpen = false;
-        }
-    }
-
     function onSubmit(e) {
         const formData = new FormData(e.target);
 
@@ -59,8 +53,8 @@
 {/if}
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div id="outside" class="modal" class:modal-open={isModalOpen} on:click={clickCheck}>
-    <div class="modal-box">
+<div id="outside" class="modal" class:modal-open={isModalOpen} on:click={()=>isModalOpen = false}>
+    <div class="modal-box" on:click|stopPropagation>
       <h3 class="font-bold text-lg">Add a View</h3>
       <form on:submit|preventDefault={onSubmit}>
       <div class="form-control w-full">

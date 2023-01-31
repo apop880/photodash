@@ -48,6 +48,7 @@
                 <span class="label-text">Use local photos. Photodash will look in <code class="bg-primary-content">/share/photodash/{data.configuration?.name.length > 0 ? data.configuration?.name : "configurationName"}</code> and display the files in that folder as your background slideshow.</span> 
               </div>
             <h3>Disable Slideshow on Entity States:</h3>
+            {#if data.configuration?.disableSlideShow}
             {#each data.configuration?.disableSlideShow as d, idx}
                 <input type="checkbox" id={"delete_"+d.uid} name={"delete_"+d.uid}>
                 <label for={"entity_"+d.uid}>Entity</label>
@@ -59,6 +60,7 @@
                 <label for={"state"+d.uid}>State to Match</label>
                 <input type="text" id={"state"+d.uid} name={"state"+d.uid} value={d.state}><br>
             {/each}
+            {/if}
             <button class="btn btn-primary" on:click|preventDefault={() => newDisableRows++}>Add State</button>
             {#each Array(newDisableRows) as _, idx}
                 <label for={"new_entity_"+ idx}>Entity</label>

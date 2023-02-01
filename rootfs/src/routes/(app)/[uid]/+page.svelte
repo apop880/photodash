@@ -49,25 +49,31 @@
         }
     }
 
-    const saveViews = () => {
-        fetch("api/saveViews", {
+    const handleAddView = async (e) => {
+        const res = await fetch("api/views", {
             method: "POST",
             body: JSON.stringify({
-                uid: $page.params.uid,
-                views: data.configuration.views
+                configId: $page.params.uid,
+                icon: e.detail.newView,
+                sortOrder: data.configuration.views.length
             })
-        })
+        });
+        const newView = await res.json();
+        data.configuration.views = [...data.configuration.views, newView]
     }
 
-    const handleAddView = (e) => {
-        data.configuration.views = [...data.configuration.views, {icon: e.detail.newView}]
-        saveViews();
-    }
-
-    const handleEditView = (e) => {
+    const handleEditView = async (e) => {
         console.log(e.detail.items);
-        data.configuration.views[curView].items = e.detail.items;
-        saveViews();
+        const res = await fetch("api/view", {
+            method: "POST",
+            body: JSON.stringify({
+                viewId: data.configuration.views[curView!].uid,
+                tiles: e.detail.items,
+                toDelete: e.detail.itemsToDelete
+            })
+        });
+        const json = await res.json();
+        data.configuration.views[curView!].tiles = json;
     }
 
     function handleMessage(e) {
@@ -94,7 +100,9 @@
 <main class="h-screen w-screen overflow-y-hidden bg-transparent grid grid-rows-[80px_1fr_100px] relative z-10" on:click={handleClick} use:swipe={{ timeframe: 300, minSwipeDistance: 50, touchAction: 'none' }} on:swipe={handleSwipe}>
     <Topbar />
     {#if curView}
+    {#key curView}
         <View view={data.configuration.views[curView]} on:editview={handleEditView} />
+    {/key}
     {/if}
     <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:message={handleMessage} />
     

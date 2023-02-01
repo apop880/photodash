@@ -64,7 +64,12 @@ export const actions: Actions = {
                 backgroundMusicEntity: backgroundMusicEntity as string ?? null,
                 backgroundMusicFile: backgroundMusicFile as string ?? null,
                 googleAlbumId: googleAlbumId as string ?? null,
-                useLocalPhotos
+                useLocalPhotos,
+                views: {
+                    create: [
+                        { sortOrder: 0 }
+                    ]
+                }
             },
             where: {
                 uid: params.uid ?? "new"

@@ -27,7 +27,7 @@ model Configuration {
   googleAlbumId String?
   useLocalPhotos Boolean @default(false)
   disableSlideShow DisableSlideShowConfig[]
-  views String @db.LongText @default("[{}]")
+  views View[]
 }
 
 model DisableSlideShowConfig {
@@ -36,4 +36,25 @@ model DisableSlideShowConfig {
   configId String
   entity String
   state String
+}
+
+model View {
+  uid String @id @default(cuid())
+  configuration Configuration @relation(fields: [configId], references: [uid])
+  configId String
+  icon String?
+  sortOrder Int
+  tiles Tile[]
+}
+
+model Tile {
+  id String @id @default(cuid())
+  view View @relation(fields: [viewId], references: [uid])
+  viewId String
+  x Int
+  y Int
+  w Int
+  h Int
+  component String
+  config Json
 }

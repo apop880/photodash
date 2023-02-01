@@ -49,7 +49,7 @@ model View {
 
 model Tile {
   id String @id @default(cuid())
-  view View @relation(fields: [viewId], references: [uid])
+  view View @relation(fields: [viewId], references: [uid], onDelete: Cascade)
   viewId String
   x Int
   y Int

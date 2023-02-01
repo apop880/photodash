@@ -4,7 +4,6 @@
     import { stateStore } from '$lib/apistore'
     import { editMode } from '$lib/editorstore';
     import { swipe } from 'svelte-gestures';
-    //import Grid from 'svelte-grid-extended';
     import Navbar from '$lib/components/Navbar.svelte';
     import MusicPlayer from './bgmusic.svelte';
 	import Slideshow from './Slideshow.svelte';
@@ -16,12 +15,6 @@
     let showMenu = false;
     let showNavbar = false;
     let timer: string | number | NodeJS.Timeout | undefined;
-
-    /*let items = [
-		{ id: '0', x: 0, y: 0, w: 1, h: 1 },
-		{ id: '1', x: 0, y: 1, w: 3, h: 1 }
-	];
-    let itemSize = {height: 70}*/
 
     $: if($editMode === false) {
         showMenu = false;
@@ -62,6 +55,17 @@
         data.configuration.views = [...data.configuration.views, newView]
     }
 
+    const handleDeleteView = async (e) => {
+        const res = await fetch("api/views", {
+            method: "DELETE",
+            body: JSON.stringify({
+                uid: e.detail.uid
+            })
+        });
+        data.configuration.views = [...data.configuration.views.filter(v => v.uid !== e.detail.uid)]
+        curView = null;
+    }
+
     const handleEditView = async (e) => {
         console.log(e.detail.items);
         const res = await fetch("api/view", {
@@ -76,7 +80,7 @@
         data.configuration.views[curView!].tiles = json;
     }
 
-    function handleMessage(e) {
+    const handleNavigateView = (e) => {
 		clearTimeout(timer);
 		if(curView === e.detail.newView) {
 			curView = null;
@@ -104,11 +108,7 @@
         <View view={data.configuration.views[curView]} on:editview={handleEditView} />
     {/key}
     {/if}
-    <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:message={handleMessage} />
-    
-    <!--<Grid class="relative z-30" cols={10} rows={8} bind:items={items} {itemSize} let:item>
-        <div class="bg-primary h-full">{item.id}</div>
-    </Grid>-->
+    <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:deleteview={handleDeleteView} on:navigateview={handleNavigateView} />
 </main>
 {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
     <MusicPlayer entity={data.configuration.backgroundMusicEntity} url={data.configuration.backgroundMusicFile} />

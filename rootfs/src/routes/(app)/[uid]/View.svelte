@@ -5,13 +5,13 @@
     import Grid from 'svelte-grid-extended';
     import ServiceTile from './tiles/ServiceTile.svelte';
 	import type { ExtendedView } from '$lib/types';
+	import { fly } from 'svelte/transition';
     export let view: ExtendedView;
     let incrementor = 0; //generates temporary unique ID for new tiles
     let items = view.tiles ?? [];
-    $: console.log(items)
     let itemsToDelete: string[] = [];
     let components = {ServiceTile};
-    let rows = Math.floor((window.screen.height - 180) / 70);
+    let rows = Math.floor((window.screen.height - 180) / 80);
     let itemSize = {height: 70};
     let modals = {
         add: false,
@@ -19,14 +19,6 @@
         delete: false
     }
     let itemToDelete: null | string = null;
-
-    const onSubmit = () => {
-        items = [...items, { id: "new", viewId: "new", x: 0, y: 0, w: 1, h: 1, component: "ServiceCard", config: {text: "Kitchen Can Lights", secondaryText: "more", icon: "iconoir:light-bulb", serviceType: "homeassistant.toggle", target: "light.theater_lights"} }]
-    }
-
-    const handleChange = (e) => {
-        items[e.detail.item.id] = e.detail.item
-    }
 
     const dispatch = createEventDispatcher();
 
@@ -97,8 +89,8 @@
 </script>
 
 {#if items.length > 0}
-<Grid class="relative z-30" cols={8} {rows} bind:items={items} {itemSize} let:item>
-    <div class="h-full" use:press={{ timeframe: 300, triggerBeforeFinished: false }} on:press={() => openDelete(item.id)}>
+<Grid class="relative z-30" cols={8} {rows} bind:items={items} {itemSize} let:item readOnly={!$editMode}>
+    <div class="h-full" use:press={{ timeframe: 300, triggerBeforeFinished: false }} on:press={() => { if ($editMode) openDelete(item.id)}} transition:fly="{{ y: 100, duration: 1000 }}">
         {#key item}
             <svelte:component this={components[item.component]} config={item.config} height={item.h} />
         {/key}   

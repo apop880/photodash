@@ -14,3 +14,14 @@ export const POST = (async ({ request }) => {
     })
     return json(view)
 }) satisfies RequestHandler;
+
+//Delete a view
+export const DELETE = (async ({ request }) => {
+    const { uid } = await request.json();
+    const view = await prisma.view.delete({
+        where: {
+            uid
+        }
+    })
+    return json(view)
+}) satisfies RequestHandler;

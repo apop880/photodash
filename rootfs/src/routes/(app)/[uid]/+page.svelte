@@ -66,6 +66,17 @@
         curView = null;
     }
 
+    const handleSortViews = async (e) => {
+        const res = await fetch("api/views", {
+            method: "PUT",
+            body: JSON.stringify({
+                views: e.detail.sortableViews
+            })
+        });
+        const newViews = await res.json();
+        data.configuration.views = [data.configuration.views[0], ...newViews]
+    }
+
     const handleEditView = async (e) => {
         console.log(e.detail.items);
         const res = await fetch("api/view", {
@@ -108,7 +119,7 @@
         <View view={data.configuration.views[curView]} on:editview={handleEditView} />
     {/key}
     {/if}
-    <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:deleteview={handleDeleteView} on:navigateview={handleNavigateView} />
+    <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:deleteview={handleDeleteView} on:sortviews={handleSortViews} on:navigateview={handleNavigateView} />
 </main>
 {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
     <MusicPlayer entity={data.configuration.backgroundMusicEntity} url={data.configuration.backgroundMusicFile} />

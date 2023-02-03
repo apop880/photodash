@@ -4,16 +4,20 @@
     import { spring } from 'svelte/motion';
     import { fly } from 'svelte/transition';
     import { elasticInOut } from 'svelte/easing'
-	import { press } from 'svelte-gestures';
+	  import { press } from 'svelte-gestures';
+    import Sortable from 'svelte-sortable';
     export let showMenu;
     export let views;
     export let curView;
+
+    let sortableViews = views.slice(1);
+    $: sortableViews = views.slice(1);
 
     let itemToDelete: string | null = null;
 
     let modals = {
         add: false,
-        edit: false,
+        sort: false,
         delete: false
     }
     let newIcon = "";
@@ -57,7 +61,19 @@
         itemToDelete = null;
     }
 
-    function menuClick(view) {
+    const confirmSort = () => {
+        modals.sort = false;
+        dispatch("sortviews", {
+            sortableViews
+        })
+    }
+
+    const cancelSort = () => {
+        sortableViews = views.slice(1);
+        modals.sort = false;
+    }
+
+    const menuClick = (view) => {
         dispatch("navigateview", {
             newView: view+1,
         });
@@ -80,6 +96,7 @@
     {/each}
     {#if $editMode}
     <button class="btn btn-circle btn-lg btn-success border-base-200" on:click={() => modals.add = true}><iconify-icon icon="material-symbols:add-box-outline-rounded" height="36"></iconify-icon></button>
+    <button class="btn btn-circle btn-lg btn-info border-base-200" on:click={() => modals.sort = true}><iconify-icon icon="material-symbols:compare-arrows" height="36"></iconify-icon></button>
     {/if}
 </div>
 {/if}
@@ -118,6 +135,25 @@
       </div>
       <div class="modal-action">
         <button type="reset" class="btn btn-error" on:click={cancelDelete}>Cancel</button>
+        <button type="submit" class="btn btn-success">Confirm</button>
+      </div>
+      </form>
+    </div>
+  </div>
+
+<!--Sort modal-->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div id="outside-sort" class="modal" class:modal-open={modals.sort} on:click={cancelSort}>
+    <div class="modal-box" on:click|stopPropagation>
+      <h3 class="font-bold text-lg">Hold and Drag Views to Reorder</h3>
+      <form id="deleteView" on:submit|preventDefault={confirmSort}>
+      <div class="form-control w-full items-center">
+        <Sortable items={sortableViews} let:item>
+              <iconify-icon icon="{item.icon}" height="36" class="btn btn-circle btn-lg m-4"></iconify-icon>
+        </Sortable>
+      </div>
+      <div class="modal-action">
+        <button type="reset" class="btn btn-error" on:click={cancelSort}>Cancel</button>
         <button type="submit" class="btn btn-success">Confirm</button>
       </div>
       </form>

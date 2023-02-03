@@ -77,7 +77,7 @@
         }
         modals.delete = false;
         let newItems = [...items]
-        newItems.splice(newItems.findIndex(i => i.id === itemToDelete!));
+        newItems.splice(newItems.findIndex(i => i.id === itemToDelete!), 1);
         items = [...newItems];
         itemToDelete = null;
     }

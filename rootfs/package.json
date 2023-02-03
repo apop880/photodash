@@ -33,13 +33,11 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^4.9.0",
-		"@svelteuidev/composables": "^0.7.7",
-		"@svelteuidev/core": "^0.7.7",
 		"daisyui": "^2.47.0",
-		"gridstack": "^7.2.2",
 		"home-assistant-js-websocket": "^8.0.1",
 		"iconify-icon": "^1.0.2",
 		"svelte-gestures": "^1.4.1",
-		"svelte-grid-extended": "^0.2.0"
+		"svelte-grid-extended": "^0.2.0",
+		"svelte-sortable": "^0.1.0"
 	}
 }

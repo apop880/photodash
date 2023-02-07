@@ -47,8 +47,7 @@
             method: "POST",
             body: JSON.stringify({
                 configId: $page.params.uid,
-                icon: e.detail.newView,
-                sortOrder: data.configuration.views.length
+                icon: e.detail.newView
             })
         });
         const newView = await res.json();

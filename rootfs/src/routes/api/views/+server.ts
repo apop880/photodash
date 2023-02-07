@@ -4,12 +4,20 @@ import prisma from '$lib/prisma';
  
 //Create a view
 export const POST = (async ({ request }) => {
-    const { configId, icon, sortOrder } = await request.json();
+    const { configId, icon } = await request.json();
+    const agg = await prisma.view.aggregate({
+        _max: {
+            sortOrder: true
+        },
+        where: {
+            configId
+        }
+    })
     const view = await prisma.view.create({
         data: {
             configId,
             icon,
-            sortOrder
+            sortOrder: agg['_max'].sortOrder! + 1
         }
     })
     return json(view)

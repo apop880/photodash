@@ -26,21 +26,33 @@ export const DELETE = (async ({ request }) => {
     return json(view)
 }) satisfies RequestHandler;
 
-//Sort views
+//Sort views or update view icon
 export const PUT = (async ({ request }) => {
-    const { views } = await request.json();
+    const data = await request.json();
 
-    const sortedViews = await prisma.$transaction(
-        views.map((v, idx) => 
-            prisma.view.update({
-                where: {
-                    uid: v.uid
-                },
-                data: {
-                    sortOrder: idx + 1
-                }
-            })
+    if ("views" in data) {
+        const sortedViews = await prisma.$transaction(
+            data.views.map((v, idx) => 
+                prisma.view.update({
+                    where: {
+                        uid: v.uid
+                    },
+                    data: {
+                        sortOrder: idx + 1
+                    }
+                })
+            )
         )
-    )
-    return json(sortedViews);
+        return json(sortedViews);
+    }
+
+    const updatedView = await prisma.view.update({
+        where: {
+            uid: data.uid
+        },
+        data: {
+            icon: data.icon
+        }
+    });
+    return json(updatedView);
 }) satisfies RequestHandler;

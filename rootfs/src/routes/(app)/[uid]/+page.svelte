@@ -55,6 +55,18 @@
         data.configuration.views = [...data.configuration.views, newView]
     }
 
+    const handleEditViewIcon = async (e) => {
+        const res = await fetch("api/views", {
+            method: "PUT",
+            body: JSON.stringify({
+                uid: e.detail.uid,
+                icon: e.detail.newIcon
+            })
+        });
+        const updatedView = await res.json()
+        data.configuration.views[e.detail.index].icon = updatedView.icon;
+    }
+
     const handleDeleteView = async (e) => {
         const res = await fetch("api/views", {
             method: "DELETE",
@@ -119,7 +131,7 @@
         <View view={data.configuration.views[curView]} on:editview={handleEditView} />
     {/key}
     {/if}
-    <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:deleteview={handleDeleteView} on:sortviews={handleSortViews} on:navigateview={handleNavigateView} />
+    <Menu {showMenu} {curView} views={data.configuration.views} on:addview={handleAddView} on:editview={handleEditViewIcon} on:deleteview={handleDeleteView} on:sortviews={handleSortViews} on:navigateview={handleNavigateView} />
 </main>
 {#if data.configuration?.backgroundMusicEntity && data.configuration?.backgroundMusicFile}
     <MusicPlayer entity={data.configuration.backgroundMusicEntity} url={data.configuration.backgroundMusicFile} />

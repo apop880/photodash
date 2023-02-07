@@ -25,7 +25,7 @@
 
     const dispatch = createEventDispatcher();
 
-    function confirmAdd(e) {
+    const confirmAdd = (e) => {
         const formData = new FormData(e.target);
 
         dispatch("addview", {

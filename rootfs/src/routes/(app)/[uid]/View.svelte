@@ -1,16 +1,20 @@
 <script lang="ts">
     import { editMode } from '$lib/editorstore';
     import { press } from 'svelte-gestures';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, SvelteComponent } from 'svelte';
     import Grid from 'svelte-grid-extended';
     import ServiceTile from './tiles/ServiceTile.svelte';
 	import type { ExtendedView } from '$lib/types';
 	import { fly } from 'svelte/transition';
+	import ServiceTileConfig from './tileConfigs/ServiceTileConfig.svelte';
     export let view: ExtendedView;
     let incrementor = 0; //generates temporary unique ID for new tiles
     let items = view.tiles ?? [];
     let itemsToDelete: string[] = [];
-    let components = {ServiceTile};
+    const components = {ServiceTile};
+    const componentMap = {
+        "ServiceTile": ServiceTileConfig
+    }
     let rows = Math.floor((window.screen.height - 180) / 80);
     let itemSize = {height: 70};
     let modals = {
@@ -19,6 +23,7 @@
         delete: false
     }
     let itemToDelete: null | string = null;
+    let component: null | SvelteComponent = null;
 
     const dispatch = createEventDispatcher();
 
@@ -27,6 +32,11 @@
             items,
             itemsToDelete
         })
+    }
+
+    const openAdd = () => {
+        modals.add = true;
+        component = null;
     }
 
     const confirmAdd = (e) => {
@@ -100,7 +110,7 @@
 
 {#if $editMode}
 <div class="z-20 h-16 absolute bottom-3 left-3 flex items-center gap-2">
-    <button class="btn btn-success" on:click={()=>modals.add = true}>Add Tile</button>
+    <button class="btn btn-success" on:click={openAdd}>Add Tile</button>
     {#if view?.tiles !== items && items.length > 0}<button class="btn btn-success" on:click={onSave}>Save Changes</button>{/if}
 </div>
 {/if}
@@ -112,29 +122,11 @@
       <h3 class="font-bold text-lg">Add a Tile</h3>
       <form id="addTile" on:submit|preventDefault={confirmAdd}>
       <div class="form-control w-full">
-        <select class="select w-full max-w-xs" name="component">
+        <select class="select w-full max-w-xs" name="component" bind:value={component}>
             <option disabled selected>Tile Type</option>
             <option value="ServiceTile">Service Tile</option>
         </select>
-        <label class="label" for="icon">
-          <span class="label-text">Enter an Iconify icon name<br>(example: <code>material-symbols:lightbulb-rounded</code>)</span>
-        </label>
-        <input name="icon" type="text" id="icon" class="input input-bordered w-full" />
-        <label class="label" for="icon">
-            <span class="label-text-alt"><a target="_blank" href="https://icon-sets.iconify.design/" rel="noreferrer" class="link link-primary">Click here to search the Iconify library</a></span>
-        </label>
-        <label class="label" for="serviceType">
-            <span class="label-text">Service Type</span>
-        </label>
-        <input name="serviceType" type="text" id="serviceType" class="input input-bordered w-full" />
-        <label class="label" for="target">
-            <span class="label-text">Target</span>
-        </label>
-        <input name="target" type="text" id="target" class="input input-bordered w-full" />
-        <label class="label" for="text">
-            <span class="label-text">Tile Text</span>
-        </label>
-        <input name="text" type="text" id="text" class="input input-bordered w-full" />
+        <svelte:component this={componentMap[component]} />
       </div>
       <div class="modal-action">
         <button type="reset" class="btn btn-error" on:click={()=>modals.add = false}>Cancel</button>

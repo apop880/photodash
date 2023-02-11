@@ -2,12 +2,13 @@
     import { editMode } from '$lib/editorstore';
     import { press } from 'svelte-gestures';
 	import { createEventDispatcher, SvelteComponent } from 'svelte';
-    import Grid from 'svelte-grid-extended';
+    import Grid, { type LayoutItem } from 'svelte-grid-extended';
     import ServiceTile from './tiles/ServiceTile/ServiceTile.svelte';
     import ServiceTileConfig from './tiles/ServiceTile/ServiceTileConfig.svelte';
 	import type { ExtendedView } from '$lib/types';
 	import { fly } from 'svelte/transition';
     export let view: ExtendedView;
+    type CustomItem = LayoutItem & {component: string, config: Object};
     let incrementor = 0; //generates temporary unique ID for new tiles
     let items = view.tiles ?? [];
     let itemsToDelete: string[] = [];
@@ -18,12 +19,11 @@
     let rows = Math.floor((window.screen.height - 180) / 80);
     let itemSize = {height: 70};
     let modals = {
-        add: false,
-        edit: false,
+        addEdit: false,
         delete: false
     }
-    let itemToDelete: null | string = null;
-    let component: null | SvelteComponent = null;
+    let itemToEdit: null | CustomItem = null;
+    let component: null | string = null;
 
     const dispatch = createEventDispatcher();
 
@@ -35,7 +35,7 @@
     }
 
     const openAdd = () => {
-        modals.add = true;
+        modals.addEdit = true;
         component = null;
     }
 
@@ -43,7 +43,6 @@
         incrementor++;
         const formData = new FormData(e.target);
         let json = Object.fromEntries(formData.entries());
-        console.log(json);
         const component = json.component as string;
         delete json["component"]
         const gridMatrix = Array(rows);
@@ -65,42 +64,65 @@
             }
             return true;
         })
-        modals.add = false;
+        modals.addEdit = false;
     }
 
     const cancelAdd = () => {
-        modals.add = false;
+        modals.addEdit = false;
         const form: HTMLFormElement | null = document.getElementById('addTile') as HTMLFormElement
         if (form) {
             form.reset();
         }
     }
 
+    const openEdit = (item: CustomItem) => {
+        itemToEdit = item;
+        component = item.component;
+        modals.addEdit = true;
+    }
+
+    const confirmEdit = (e) => {
+        const formData = new FormData(e.target);
+        let json = Object.fromEntries(formData.entries());
+        const idx = items.findIndex(i => i.id === itemToEdit?.id)
+        const component = json.component as string;
+        delete json["component"];
+        items[idx].component = component;
+        items[idx].config = json;
+        modals.addEdit = false;
+        itemToEdit = null;
+    }
+
+    const cancelEdit = () => {
+        modals.addEdit = false;
+        itemToEdit = null;
+    }
+
     const openDelete = (id: string) => {
-        itemToDelete = id;
+        modals.addEdit = false;
         modals.delete = true;
     }
 
     const confirmDelete = () => {
-        if (!itemToDelete!.startsWith("new")) {
-            itemsToDelete = [...itemsToDelete, itemToDelete!]
+        if (!itemToEdit!.id.startsWith("new")) {
+            itemsToDelete = [...itemsToDelete, itemToEdit!.id]
         }
         modals.delete = false;
         let newItems = [...items]
-        newItems.splice(newItems.findIndex(i => i.id === itemToDelete!), 1);
+        newItems.splice(newItems.findIndex(i => i.id === itemToEdit!.id), 1);
         items = [...newItems];
-        itemToDelete = null;
+        itemToEdit = null;
     }
 
     const cancelDelete = () => {
         modals.delete = false;
-        itemToDelete = null;
+        itemToEdit = null;
     }
 </script>
 
 {#if items.length > 0}
 <Grid class="relative z-30" cols={8} {rows} bind:items={items} {itemSize} let:item readOnly={!$editMode}>
-    <div class="h-full" use:press={{ timeframe: 300, triggerBeforeFinished: false }} on:press={() => { if ($editMode) openDelete(item.id)}} transition:fly="{{ y: 100, duration: 1000 }}">
+    <div class="h-full" use:press={{ timeframe: 300, triggerBeforeFinished: false }} on:press={() => { if ($editMode) openEdit(item)}} transition:fly="{{ y: 100, duration: 1000 }}">
         {#key item}
             <svelte:component this={components[item.component]} config={item.config} height={item.h} />
         {/key}   
@@ -115,21 +137,24 @@
 </div>
 {/if}
 
-<!--Add modal-->
+<!--Add/Edit modal-->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div id="outside-add" class="modal" class:modal-open={modals.add} on:click={cancelAdd}>
+<div id="outside-add" class="modal" class:modal-open={modals.addEdit} on:click={cancelAdd}>
     <div class="modal-box" on:click|stopPropagation>
-      <h3 class="font-bold text-lg">Add a Tile</h3>
-      <form id="addTile" on:submit|preventDefault={confirmAdd}>
+      <h3 class="font-bold text-lg">{itemToEdit ? `Edit` : `Add`} a Tile</h3>
+      <form id="addTile" on:submit|preventDefault={itemToEdit ? confirmEdit : confirmAdd}>
       <div class="form-control w-full">
         <select class="select select-bordered w-full max-w-xs mt-1" name="component" bind:value={component}>
             <option disabled value={null}>Tile Type</option>
             <option value="ServiceTile">Service Tile</option>
         </select>
-        <svelte:component this={componentMap[component]} />
+        {#key itemToEdit}
+            <svelte:component this={componentMap[component]} data={itemToEdit?.config} />
+        {/key}
       </div>
       <div class="modal-action">
-        <button type="reset" class="btn btn-error" on:click={()=>modals.add = false}>Cancel</button>
+        {#if itemToEdit}<button class="btn btn-error" on:click|preventDefault={openDelete}>Delete Tile</button>{/if}
+        <button type="reset" class="btn btn-error" on:click={()=>modals.addEdit = false}>Cancel</button>
         <button type="submit" class="btn btn-success">Save</button>
       </div>
       </form>

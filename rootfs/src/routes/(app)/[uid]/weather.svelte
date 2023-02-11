@@ -1,7 +1,6 @@
 <script lang="ts">
     import { stateStore } from '$lib/apistore';
     import { flip } from 'svelte/animate';
-    import { circIn } from 'svelte/easing';
     import CurrentWeather from './currentweather.svelte';
     import Forecast from './forecast.svelte';
 
@@ -27,7 +26,7 @@
 
 {#if $stateStore !== null}
 {#each componentArray as component, key(component)}
-<div animate:flip="{{duration: 400, easing: circIn}}" style="justify-self:end;">
+<div animate:flip="{{duration: 400}}" style="justify-self:end;">
 <svelte:component this={component} on:click="{() => toggleForecast()}" />
 </div>
 {/each}

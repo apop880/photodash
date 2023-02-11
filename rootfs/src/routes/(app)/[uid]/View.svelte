@@ -3,10 +3,10 @@
     import { press } from 'svelte-gestures';
 	import { createEventDispatcher, SvelteComponent } from 'svelte';
     import Grid from 'svelte-grid-extended';
-    import ServiceTile from './tiles/ServiceTile.svelte';
+    import ServiceTile from './tiles/ServiceTile/ServiceTile.svelte';
+    import ServiceTileConfig from './tiles/ServiceTile/ServiceTileConfig.svelte';
 	import type { ExtendedView } from '$lib/types';
 	import { fly } from 'svelte/transition';
-	import ServiceTileConfig from './tileConfigs/ServiceTileConfig.svelte';
     export let view: ExtendedView;
     let incrementor = 0; //generates temporary unique ID for new tiles
     let items = view.tiles ?? [];
@@ -122,8 +122,8 @@
       <h3 class="font-bold text-lg">Add a Tile</h3>
       <form id="addTile" on:submit|preventDefault={confirmAdd}>
       <div class="form-control w-full">
-        <select class="select w-full max-w-xs" name="component" bind:value={component}>
-            <option disabled selected>Tile Type</option>
+        <select class="select select-bordered w-full max-w-xs mt-1" name="component" bind:value={component}>
+            <option disabled value={null}>Tile Type</option>
             <option value="ServiceTile">Service Tile</option>
         </select>
         <svelte:component this={componentMap[component]} />

@@ -17,3 +17,7 @@
       <span class="label-text">Tile Text</span>
   </label>
   <input name="text" type="text" id="text" class="input input-bordered w-full" />
+  <label class="label" for="secondaryText">
+    <span class="label-text">Secondary Text</span>
+  </label>
+  <input name="secondaryText" type="text" id="secondaryText" class="input input-bordered w-full" />

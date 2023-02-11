@@ -67,8 +67,9 @@
         modals.addEdit = false;
     }
 
-    const cancelAdd = () => {
+    const cancelAddEdit = () => {
         modals.addEdit = false;
+        itemToEdit = null;
         const form: HTMLFormElement | null = document.getElementById('addTile') as HTMLFormElement
         if (form) {
             form.reset();
@@ -93,12 +94,7 @@
         itemToEdit = null;
     }
 
-    const cancelEdit = () => {
-        modals.addEdit = false;
-        itemToEdit = null;
-    }
-
-    const openDelete = (id: string) => {
+    const openDelete = () => {
         modals.addEdit = false;
         modals.delete = true;
     }
@@ -139,7 +135,7 @@
 
 <!--Add/Edit modal-->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div id="outside-add" class="modal" class:modal-open={modals.addEdit} on:click={cancelAdd}>
+<div id="outside-add" class="modal" class:modal-open={modals.addEdit} on:click={cancelAddEdit}>
     <div class="modal-box" on:click|stopPropagation>
       <h3 class="font-bold text-lg">{itemToEdit ? `Edit` : `Add`} a Tile</h3>
       <form id="addTile" on:submit|preventDefault={itemToEdit ? confirmEdit : confirmAdd}>
@@ -154,7 +150,7 @@
       </div>
       <div class="modal-action">
         {#if itemToEdit}<button class="btn btn-error" on:click|preventDefault={openDelete}>Delete Tile</button>{/if}
-        <button type="reset" class="btn btn-error" on:click={()=>modals.addEdit = false}>Cancel</button>
+        <button type="reset" class="btn btn-error" on:click={cancelAddEdit}>Cancel</button>
         <button type="submit" class="btn btn-success">Save</button>
       </div>
       </form>

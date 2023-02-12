@@ -1,11 +1,7 @@
 <script lang="ts">
-    export let data: {
-        icon?: string,
-        serviceType?: string,
-        target?: string,
-        text?: string,
-        secondaryText?: string
-    };
+	import type { ServiceTileConfig } from "$lib/types";
+
+    export let data: ServiceTileConfig;
 </script>
 
 <label class="label" for="icon">

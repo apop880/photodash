@@ -1,8 +1,8 @@
 <script lang="ts">
     import { stateStore, action } from "$lib/apistore";
-	import type { ServiceCardConfig } from "$lib/types";
+	import type { ServiceTileConfig } from "$lib/types";
 
-    export let config: ServiceCardConfig;
+    export let config: ServiceTileConfig;
     export let height: number;   
 
     const handleClick = () => {

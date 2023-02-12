@@ -10,7 +10,7 @@
     }
 </script>
 
-<button class="btn btn-secondary h-full w-full grid text-lg normal-case" class:grid-cols-2={config.icon} on:click={handleClick}>
+<button class="btn btn-secondary h-full w-full grid text-lg normal-case" class:grid-cols-button={config.icon} on:click={handleClick}>
     {#if config?.icon}<div class:row-span-2={config.secondaryText}><iconify-icon icon={config.icon} height="{65 * height}"></iconify-icon></div>{/if}
     <div>{config.text}</div>
     {#if config?.secondaryText}<div>{config.secondaryText}</div>{/if}

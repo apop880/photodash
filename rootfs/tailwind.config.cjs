@@ -2,7 +2,11 @@ const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {}
+		extend: {
+			gridTemplateColumns: {
+				"button": "auto 1fr"
+			}
+		}
 	},
 	daisyui: {
 		themes: [

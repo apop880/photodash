@@ -11,3 +11,9 @@ export type ServiceCardConfig = {
     text: string;
     secondaryText?: string;
 }
+
+export type LightTileConfig = {
+    entity: string;
+    icon: string;
+    iconHeight?: number
+}

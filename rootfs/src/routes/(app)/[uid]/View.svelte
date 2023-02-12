@@ -5,6 +5,8 @@
     import Grid, { type LayoutItem } from 'svelte-grid-extended';
     import ServiceTile from './tiles/ServiceTile/ServiceTile.svelte';
     import ServiceTileConfig from './tiles/ServiceTile/ServiceTileConfig.svelte';
+    import LightTile from './tiles/LightTile/LightTile.svelte';
+    import LightTileConfig from './tiles/LightTile/LightTileConfig.svelte';
 	import type { ExtendedView } from '$lib/types';
 	import { fly } from 'svelte/transition';
     export let view: ExtendedView;
@@ -12,9 +14,10 @@
     let incrementor = 0; //generates temporary unique ID for new tiles
     let items = view.tiles ?? [];
     let itemsToDelete: string[] = [];
-    const components = {ServiceTile};
+    const components = {ServiceTile, LightTile};
     const componentMap = {
-        "ServiceTile": ServiceTileConfig
+        "ServiceTile": ServiceTileConfig,
+        "LightTile": LightTileConfig
     }
     let rows = Math.floor((window.screen.height - 180) / 80);
     let itemSize = {height: 70};
@@ -143,6 +146,7 @@
         <select class="select select-bordered w-full max-w-xs mt-1" name="component" bind:value={component}>
             <option disabled value={null}>Tile Type</option>
             <option value="ServiceTile">Service Tile</option>
+            <option value="LightTile">Light Tile</option>
         </select>
         {#key itemToEdit}
             <svelte:component this={componentMap[component]} data={itemToEdit?.config} />

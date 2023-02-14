@@ -32,7 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@prisma/client": "^4.9.0",
+		"@prisma/client": "^4.10.1",
 		"daisyui": "^2.47.0",
 		"home-assistant-js-websocket": "^8.0.1",
 		"iconify-icon": "^1.0.2",

@@ -1,19 +1,25 @@
-name: "Test"
+name: "Publish"
 
-on: [push, pull_request]
+on:
+  release:
+    types: [published]
 
 jobs:
-  build:
-    name: Test build
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
-      - name: Test build
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Publish
         uses: home-assistant/builder@master
         with:
           args: |
-            --test \
             --amd64 \
             --aarch64 \
             --target . \

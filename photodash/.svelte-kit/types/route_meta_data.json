@@ -1,0 +1,44 @@
+{
+	"/(app)": [
+		"src/routes/+layout.server.ts"
+	],
+	"/(admin)": [
+		"src/routes/(admin)/+page.server.ts",
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/": [
+		"src/routes/+layout.server.ts"
+	],
+	"/api/config": [
+		"src/routes/api/config/+server.ts"
+	],
+	"/api/googleAccessToken": [
+		"src/routes/api/googleAccessToken/+server.ts"
+	],
+	"/api/localSlideshow": [
+		"src/routes/api/localSlideshow/+server.ts"
+	],
+	"/api/saveViews": [
+		"src/routes/api/saveViews/+server.ts"
+	],
+	"/api/views": [
+		"src/routes/api/views/+server.ts"
+	],
+	"/api/view": [
+		"src/routes/api/view/+server.ts"
+	],
+	"/(admin)/config/[[uid]]": [
+		"src/routes/(admin)/config/[[uid]]/+page.ts",
+		"src/routes/(admin)/config/[[uid]]/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/(admin)/settings": [
+		"src/routes/(admin)/settings/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/(app)/[uid]": [
+		"src/routes/(app)/[uid]/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	]
+}

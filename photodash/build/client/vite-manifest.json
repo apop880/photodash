@@ -1,0 +1,223 @@
+{
+  "Button.css": {
+    "file": "_app/immutable/assets/Button-d59859da.css",
+    "src": "Button.css"
+  },
+  "src/routes/[uid]/+page.css": {
+    "file": "_app/immutable/assets/_page-f6d9c183.css",
+    "src": "src/routes/[uid]/+page.css"
+  },
+  "src/routes/+layout.svelte": {
+    "file": "_app/immutable/components/pages/_layout.svelte-33cfb001.js",
+    "src": "src/routes/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_stitches.config-5e7a5ac4.js"
+    ]
+  },
+  "_apistore-9577ccf3.js": {
+    "file": "_app/immutable/chunks/apistore-9577ccf3.js",
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_stores-3fa92a4b.js"
+    ]
+  },
+  "_Stack-756f318e.js": {
+    "file": "_app/immutable/chunks/Stack-756f318e.js",
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_stitches.config-5e7a5ac4.js",
+      "_AppShell-cfa6c1e0.js"
+    ]
+  },
+  ".svelte-kit/generated/nodes/1.js": {
+    "file": "_app/immutable/chunks/1-97b31b9c.js",
+    "src": ".svelte-kit/generated/nodes/1.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "node_modules/@sveltejs/kit/src/runtime/components/error.svelte"
+    ]
+  },
+  "src/routes/settings/+page.svelte": {
+    "file": "_app/immutable/components/pages/settings/_page.svelte-613e25c5.js",
+    "src": "src/routes/settings/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_singletons-99afe59e.js",
+      "_Stack-756f318e.js",
+      "_AppShell-cfa6c1e0.js",
+      "_Button-b0c24815.js"
+    ]
+  },
+  ".svelte-kit/generated/nodes/2.js": {
+    "file": "_app/immutable/chunks/2-00e2e754.js",
+    "src": ".svelte-kit/generated/nodes/2.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/routes/+page.svelte"
+    ]
+  },
+  ".svelte-kit/generated/nodes/3.js": {
+    "file": "_app/immutable/chunks/3-50137835.js",
+    "src": ".svelte-kit/generated/nodes/3.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/routes/[uid]/+page.svelte"
+    ]
+  },
+  ".svelte-kit/generated/nodes/4.js": {
+    "file": "_app/immutable/chunks/4-69c736e6.js",
+    "src": ".svelte-kit/generated/nodes/4.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "__page-29f191b9.js",
+      "src/routes/config/[[uid]]/+page.svelte"
+    ]
+  },
+  "src/routes/config/[[uid]]/+page.ts": {
+    "file": "_app/immutable/modules/pages/config/__uid__/_page.ts-1bb24b69.js",
+    "src": "src/routes/config/[[uid]]/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_apistore-9577ccf3.js",
+      "_googlePhotosStore-5ebdd7fd.js",
+      "_index-fb8a4cb6.js",
+      "__page-29f191b9.js"
+    ]
+  },
+  "_stores-3fa92a4b.js": {
+    "file": "_app/immutable/chunks/stores-3fa92a4b.js",
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_singletons-99afe59e.js"
+    ]
+  },
+  "_singletons-99afe59e.js": {
+    "file": "_app/immutable/chunks/singletons-99afe59e.js",
+    "imports": [
+      "_index-fb8a4cb6.js"
+    ]
+  },
+  "_AppShell-cfa6c1e0.js": {
+    "file": "_app/immutable/chunks/AppShell-cfa6c1e0.js",
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_stitches.config-5e7a5ac4.js"
+    ]
+  },
+  "_googlePhotosStore-5ebdd7fd.js": {
+    "file": "_app/immutable/chunks/googlePhotosStore-5ebdd7fd.js",
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_stores-3fa92a4b.js"
+    ]
+  },
+  ".svelte-kit/generated/nodes/5.js": {
+    "file": "_app/immutable/chunks/5-a68ce4eb.js",
+    "src": ".svelte-kit/generated/nodes/5.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/routes/settings/+page.svelte"
+    ]
+  },
+  "src/routes/+page.svelte": {
+    "file": "_app/immutable/components/pages/_page.svelte-94d19882.js",
+    "src": "src/routes/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_Stack-756f318e.js",
+      "_apistore-9577ccf3.js",
+      "_AppShell-cfa6c1e0.js",
+      "_Button-b0c24815.js",
+      "_stitches.config-5e7a5ac4.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/client/start.js": {
+    "file": "_app/immutable/start-86848ff6.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_singletons-99afe59e.js"
+    ],
+    "dynamicImports": [
+      ".svelte-kit/generated/nodes/0.js",
+      ".svelte-kit/generated/nodes/1.js",
+      ".svelte-kit/generated/nodes/2.js",
+      ".svelte-kit/generated/nodes/3.js",
+      ".svelte-kit/generated/nodes/4.js",
+      ".svelte-kit/generated/nodes/5.js"
+    ]
+  },
+  ".svelte-kit/generated/nodes/0.js": {
+    "file": "_app/immutable/chunks/0-9e050466.js",
+    "src": ".svelte-kit/generated/nodes/0.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/routes/+layout.svelte"
+    ]
+  },
+  "_stitches.config-5e7a5ac4.js": {
+    "file": "_app/immutable/chunks/stitches.config-5e7a5ac4.js",
+    "imports": [
+      "_index-fb8a4cb6.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
+    "file": "_app/immutable/components/error.svelte-8545b7b2.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_stores-3fa92a4b.js"
+    ]
+  },
+  "src/routes/config/[[uid]]/+page.svelte": {
+    "file": "_app/immutable/components/pages/config/__uid__/_page.svelte-0c77473c.js",
+    "src": "src/routes/config/[[uid]]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_googlePhotosStore-5ebdd7fd.js",
+      "_AppShell-cfa6c1e0.js",
+      "_Button-b0c24815.js"
+    ]
+  },
+  "__page-29f191b9.js": {
+    "file": "_app/immutable/chunks/_page-29f191b9.js",
+    "imports": [
+      "_apistore-9577ccf3.js",
+      "_googlePhotosStore-5ebdd7fd.js",
+      "_index-fb8a4cb6.js"
+    ]
+  },
+  "_index-fb8a4cb6.js": {
+    "file": "_app/immutable/chunks/index-fb8a4cb6.js"
+  },
+  "_Button-b0c24815.js": {
+    "file": "_app/immutable/chunks/Button-b0c24815.js",
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_stitches.config-5e7a5ac4.js"
+    ],
+    "css": [
+      "_app/immutable/assets/Button-d59859da.css"
+    ]
+  },
+  "src/routes/[uid]/+page.svelte": {
+    "file": "_app/immutable/components/pages/_uid_/_page.svelte-f41a4aa1.js",
+    "src": "src/routes/[uid]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-fb8a4cb6.js",
+      "_apistore-9577ccf3.js",
+      "_AppShell-cfa6c1e0.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page-f6d9c183.css"
+    ]
+  }
+}

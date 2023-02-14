@@ -1,0 +1,1 @@
+{"version":3,"file":"prisma-68db7c66.js","sources":["../../../.svelte-kit/adapter-node/chunks/prisma.js"],"sourcesContent":["import { PrismaClient } from \"@prisma/client\";\nconst prisma = new PrismaClient();\nexport {\n  prisma as p\n};\n"],"names":[],"mappings":";;AACK,MAAC,MAAM,GAAG,IAAI,YAAY;;;;"}

@@ -14,6 +14,7 @@ COPY photodash /
 RUN chmod a+x /run.sh
 
 RUN npm install
+RUN npx prisma generate
 RUN npm run build
 
 CMD ./run.sh

@@ -1,6 +1,6 @@
 name: "Photodash"
 description: "A beautiful, photo focused Home Assistant alternative dashboard."
-version: "0.1.22"
+version: "0.1.0"
 slug: "photo_dash"
 init: false
 arch:
@@ -9,6 +9,7 @@ arch:
   - armhf
   - armv7
   - i386
+image: "apopoutsis/{arch}-photodash"
 startup: before
 ports:
   3000/tcp: 8800

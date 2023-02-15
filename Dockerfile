@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     npm
 
 # Copy data for add-on
-COPY photodash /
+COPY rootfs /
 
 RUN chmod a+x /run.sh
 

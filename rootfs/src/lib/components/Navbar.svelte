@@ -12,7 +12,9 @@
 
 <div class="navbar bg-primary shadow-lg shadow-primary-content z-50" class:absolute transition:fly={{ y: -200, duration: absolute ? 500 : 0}}>
     <div class:flex-1="{!absolute}">
-    <a href="/" data-sveltekit-reload={absolute ? "" : "off"} class="btn btn-ghost normal-case text-xl text-primary-content">Photodash</a>
+    <a href="/" data-sveltekit-reload={absolute ? "" : "off"} class="btn btn-ghost normal-case text-xl text-primary-content">
+    <img src="/logo.png" class="h-full" alt="Photodash Logo" />
+    </a>
     </div>
     {#if currentConfig}
     <div class="flex-1 text-primary-content">Current Config: {currentConfig}</div>

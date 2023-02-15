@@ -4,7 +4,8 @@ import type { LayoutServerLoad } from "./$types";
 
 export const load = (async ({ route }) => {
     const baseSettings = await prisma.baseSettings.findFirst();
-    if (!baseSettings && route.id !== "/(config)/settings") {
+    console.log(route.id)
+    if (!baseSettings && route.id !== "/(admin)/settings") {
         throw redirect(302, "/settings")
     }
     

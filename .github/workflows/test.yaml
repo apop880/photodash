@@ -16,5 +16,5 @@ jobs:
             --test \
             --amd64 \
             --aarch64 \
-            --target . \
+            --target photodash \
             --docker-hub apopoutsis

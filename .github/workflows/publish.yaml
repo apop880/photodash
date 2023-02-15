@@ -3,6 +3,7 @@ name: "Publish"
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -22,5 +23,5 @@ jobs:
           args: |
             --amd64 \
             --aarch64 \
-            --target . \
+            --target photodash \
             --docker-hub apopoutsis

@@ -9,7 +9,7 @@
         const timer = setInterval(
             () => {
                 let dateObj = new Date();
-                time = dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).split(' ');
+                time = dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).split(/\s+/);
                 date = dateObj.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
             }, 1000);
         });

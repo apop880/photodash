@@ -2,6 +2,7 @@
     import type { PageData, ActionData } from './$types'
 	import { invalidate } from '$app/navigation';
 	import { browser } from '$app/environment';
+	import Toast from '$lib/components/Toast.svelte';
     export let data: PageData;
     export let form: ActionData;
     if (form?.success && browser) {
@@ -9,6 +10,11 @@
     }
 </script>
 
+{#if form?.success}
+<Toast autoClose>
+    Settings saved successfully.
+</Toast>
+{/if}
 <div class="container mx-auto">
 <h1 class="text-xl font-bold">Global Settings</h1>
 <form method="POST">

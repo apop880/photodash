@@ -1,5 +1,6 @@
 import prisma from "$lib/prisma";
-import type { PageServerLoad, Actions } from "./$types";
+import { redirect } from "@sveltejs/kit";
+import type { Actions } from "./$types";
 
 export const actions: Actions = {
     default: async ({ request, params }) => {
@@ -21,7 +22,7 @@ export const actions: Actions = {
                     googleRefreshToken: (googleRefreshToken.length > 0) ? googleRefreshToken : null
                 }
             })
-            return { success: true }
+            throw redirect(302, "/")
         }
 
         await prisma.baseSettings.updateMany({

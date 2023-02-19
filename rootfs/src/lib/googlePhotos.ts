@@ -36,7 +36,7 @@ export const getGoogleImages = async (id: string) => {
         });
     const data = await res.json();
     nextPageToken = data.nextPageToken ?? null;
-    const images = data.mediaItems.map((item: any) => `${item.baseUrl}=w${w}-h${h}`)
+    const images = data.mediaItems.map((item: any) => `${item.baseUrl}=w${w}-h${h}`).sort(() => Math.random() - 0.5);
     return images;
 }
 

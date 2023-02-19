@@ -28,6 +28,9 @@
                 images = [...nextImages];
                 getGoogleImages(googleAlbumId!).then(res => images = res);
             }
+            else {
+                fetch(`/api/localSlideshow?name=${name}`).then(res => res.json()).then(json => images = json);
+            }
         }
     }
     const getImages = async () => {

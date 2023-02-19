@@ -6,5 +6,7 @@ username=$(bashio::services "mysql" "username")
 export DATABASE_URL="mysql://${username}:${password}@${host}:${port}/photodash?schema=public"
 export SUPERVISOR_URL="http://supervisor/core"
 npx prisma db push
-ln -s share build/client/share
-node build/index.js
+cd build/client
+ln -s /share share
+cd /
+node /build/index.js

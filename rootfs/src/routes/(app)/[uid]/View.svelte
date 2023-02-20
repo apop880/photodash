@@ -123,7 +123,7 @@
 <Grid class="relative z-30" cols={8} {rows} bind:items={items} {itemSize} let:item readOnly={!$editMode}>
     <div class="h-full" use:press={{ timeframe: 300, triggerBeforeFinished: false }} on:press={() => { if ($editMode) openEdit(item)}} transition:fly="{{ y: 100, duration: 1000 }}">
         {#key item}
-            <svelte:component this={components[item.component]} config={item.config} height={item.h} />
+            <svelte:component this={components[item.component]} config={item.config} />
         {/key}   
     </div>
 </Grid>

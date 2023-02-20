@@ -3,7 +3,6 @@
 	import type { LightTileConfig } from "$lib/types";
 
     export let config: LightTileConfig;
-    export let height: number;   
 
     const handleClick = () => {
         action("homeassistant.toggle", config.entity)

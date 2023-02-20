@@ -8,6 +8,7 @@ export type ServiceTileConfig = {
     target: string;
     serviceData?: object;
     icon?: string;
+    iconHeight?: number;
     text: string;
     secondaryText?: string;
 }
@@ -15,5 +16,5 @@ export type ServiceTileConfig = {
 export type LightTileConfig = {
     entity: string;
     icon: string;
-    iconHeight?: number
+    iconHeight?: number;
 }

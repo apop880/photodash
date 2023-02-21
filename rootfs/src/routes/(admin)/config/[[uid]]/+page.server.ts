@@ -2,6 +2,7 @@ import prisma from "$lib/prisma";
 import type { PageServerLoad, Actions} from "./$types"
 import type { ExtendedConfiguration } from "$lib/types";
 import { getAlbums, type Album } from "$lib/googlePhotos";
+import { redirect } from "@sveltejs/kit";
 
 export const load = (async ({ params, parent, fetch }) => {
     const configuration: ExtendedConfiguration = await prisma.configuration.findFirst({where: {uid: params.uid ?? "new"}, include: {disableSlideShow: true}})
@@ -83,5 +84,9 @@ export const actions: Actions = {
                 useLocalPhotos
             }
         })
+        if (!params.uid) {
+            throw redirect(302, `/config/${result.uid}`)
+        }
+        return { success: true }
     }
 }

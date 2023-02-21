@@ -13,14 +13,14 @@
 
 <div class="navbar w-screen bg-primary shadow-lg shadow-primary-content z-50" class:absolute transition:fly={{ y: -200, duration: absolute ? 500 : 0}}>
     <div class:flex-1="{!absolute}">
-    <a href="/" data-sveltekit-reload={absolute ? "" : "off"} class="btn btn-ghost normal-case text-xl text-primary-content">
+    <a href="/" class="btn btn-ghost normal-case text-xl text-primary-content">
     <img src="/logo.png" class="h-full" alt="Photodash Logo" />
     </a>
     </div>
     {#if currentConfig}
     <div class="flex-1 text-primary-content">Current Config: {currentConfig}</div>
     <div class="flex-1">
-        <a href={`/config/${$page.params.uid}`} data-sveltekit-reload={absolute ? "" : "off"} class="text-primary-content flex items-center gap-2 btn btn-ghost">
+        <a href={`/config/${$page.params.uid}`} class="text-primary-content flex items-center gap-2 btn btn-ghost">
                 <Icon icon="fluent:form-24-regular" height="36"></Icon>Edit Config
             </a>
     </div>
@@ -33,7 +33,7 @@
     </div>
     {/if}
     <div class="flex-none">
-    <a href="/settings" data-sveltekit-reload={absolute ? "" : "off"} class="text-primary-content flex items-center gap-2 btn btn-ghost">
+    <a href="/settings" class="text-primary-content flex items-center gap-2 btn btn-ghost">
         <Icon icon="ion:settings-outline" height="36"></Icon>Global Settings
     </a>
     </div>

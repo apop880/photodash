@@ -5,7 +5,7 @@
 	import Icon from '$lib/components/Icon.svelte';
 </script>
 
-{#if $stateStore && $page.data.configuration.weatherEntity}
+{#if $stateStore && $page.data.configuration?.weatherEntity}
 <button class="weather mx-2.5 mb-2.5 flex items-center" on:click|stopPropagation>
     <Icon icon={CONDITION_PICTURES[$stateStore[$page.data.configuration.weatherEntity].state]} height="56"></Icon>
     {$stateStore[$page.data.configuration.weatherEntity].attributes.temperature + $stateStore[$page.data.configuration.weatherEntity].attributes.temperature_unit}

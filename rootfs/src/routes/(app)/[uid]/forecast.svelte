@@ -16,7 +16,7 @@
     }
 </script>
 
-{#if $stateStore}
+{#if $stateStore && $page.data.configuration?.weatherEntity}
 <button class="weather-extended" on:click|stopPropagation on:keydown in:fly="{{ y: -200, duration: 500, delay: 750 }}" out:fly="{{ y: -200, duration: 500 }}">
     {#each $stateStore[$page.data.configuration.weatherEntity].attributes.forecast.slice(0, 3) as forecast, idx}
         <div>{getDay(idx)}</div>

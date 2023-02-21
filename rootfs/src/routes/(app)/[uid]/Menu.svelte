@@ -6,6 +6,7 @@
     import { elasticInOut } from 'svelte/easing'
 	  import { press } from 'svelte-gestures';
     import Sortable from 'svelte-sortable';
+	  import Icon from '$lib/components/Icon.svelte';
     export let showMenu;
     export let views;
     export let curView;
@@ -117,12 +118,12 @@
             on:touchend="{() => size.set(1)}"
             use:press={{ timeframe: 300, triggerBeforeFinished: false }} on:press={() => { if ($editMode) openEdit(item.uid, item.icon, index)}}
             style="transform: scale({$size})">
-            <iconify-icon icon="{item.icon}" height="36"></iconify-icon>
+            <Icon icon="{item.icon}" height="36"></Icon>
         </button>
     {/each}
     {#if $editMode}
-    <button class="btn btn-circle btn-lg btn-success border-base-200" on:click={() => modals.add = true}><iconify-icon icon="material-symbols:add-box-outline-rounded" height="36"></iconify-icon></button>
-    <button class="btn btn-circle btn-lg btn-info border-base-200" on:click={() => modals.sort = true}><iconify-icon icon="material-symbols:compare-arrows" height="36"></iconify-icon></button>
+    <button class="btn btn-circle btn-lg btn-success border-base-200" on:click={() => modals.add = true}><Icon icon="material-symbols:add-box-outline-rounded" height="36"></Icon></button>
+    <button class="btn btn-circle btn-lg btn-info border-base-200" on:click={() => modals.sort = true}><Icon icon="material-symbols:compare-arrows" height="36"></Icon></button>
     {/if}
 </div>
 {/if}
@@ -199,7 +200,7 @@
       <form id="deleteView" on:submit|preventDefault={confirmSort}>
       <div class="form-control w-full items-center">
         <Sortable items={sortableViews} let:item>
-              <iconify-icon icon="{item.icon}" height="36" class="btn btn-circle btn-lg m-4"></iconify-icon>
+              <div class="btn btn-circle btn-lg m-4"><Icon icon="{item.icon}" height="36"></Icon></div>
         </Sortable>
       </div>
       <div class="modal-action">

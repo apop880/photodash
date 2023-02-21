@@ -25,6 +25,7 @@
     <input type="text" id="token" name="token" value={data.baseSettings?.token ?? null}>
     <hr class="col-span-6 h-1 bg-gray-400 border-0 my-4">
     <h2 class="text-lg font-bold">Google Photos</h2>
+    <span>For details on how to obtain the below values, <a href="https://photodash.apop.tech/docs/user/onboarding#google-photos" class="link" target="_blank" rel="noreferrer">click here</a>.</span>
     <label for="googleClientId">Google API Client Id:</label>
     <input type="text" id="googleClientId" name="googleClientId" value={data.baseSettings?.googleClientId ?? null}>
     <label for="googleClientSecret">Google API Client Secret:</label>

@@ -3,7 +3,7 @@
     import { page } from '$app/stores';
     import { fly, fade } from 'svelte/transition';
     import { CONDITION_PICTURES } from '$lib/const';
-    import 'iconify-icon';
+	import Icon from '$lib/components/Icon.svelte';
     const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     function getDay(key) {
@@ -20,7 +20,7 @@
 <button class="weather-extended" on:click|stopPropagation on:keydown in:fly="{{ y: -200, duration: 500, delay: 750 }}" out:fly="{{ y: -200, duration: 500 }}">
     {#each $stateStore[$page.data.configuration.weatherEntity].attributes.forecast.slice(0, 3) as forecast, idx}
         <div>{getDay(idx)}</div>
-        <div class="text-[26pt]"><iconify-icon icon={CONDITION_PICTURES[forecast.condition]}></iconify-icon></div>
+        <div ><Icon icon={CONDITION_PICTURES[forecast.condition]} height="36"></Icon></div>
         <div>{roundTemp(forecast.temperature)}&deg; / {roundTemp(forecast.templow)}&deg;</div>
     {/each}
 </button>
@@ -40,7 +40,7 @@
         grid-auto-flow: column;
         grid-column-gap: 10px;
         grid-row-gap: 5px;
-        text-align: center;
+        justify-items: center;
         background-color: rgba(158, 153, 153, 0.825);
         border-radius: 20px;
         padding: 10px;

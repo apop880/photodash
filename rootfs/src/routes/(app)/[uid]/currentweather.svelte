@@ -2,12 +2,12 @@
     import { stateStore } from '$lib/apistore';
     import { page } from '$app/stores';
     import { CONDITION_PICTURES } from '$lib/const';
-    import 'iconify-icon';
+	import Icon from '$lib/components/Icon.svelte';
 </script>
 
 {#if $stateStore && $page.data.configuration.weatherEntity}
 <button class="weather mx-2.5 mb-2.5 flex items-center" on:click|stopPropagation>
-    <iconify-icon icon={CONDITION_PICTURES[$stateStore[$page.data.configuration.weatherEntity].state]}></iconify-icon>
+    <Icon icon={CONDITION_PICTURES[$stateStore[$page.data.configuration.weatherEntity].state]} height="56"></Icon>
     {$stateStore[$page.data.configuration.weatherEntity].attributes.temperature + $stateStore[$page.data.configuration.weatherEntity].attributes.temperature_unit}
 </button>
 {/if}

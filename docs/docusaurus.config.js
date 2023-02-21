@@ -50,6 +50,8 @@ const config = {
       }),
     ],
   ],
+  
+  scripts: [{src: 'https://analytics.apop.tech/js/plausible.js', defer: true, 'data-domain': 'photodash.apop.tech'}],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

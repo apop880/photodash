@@ -94,12 +94,8 @@ const config = {
                 to: '/docs/installation'
               },
               {
-                label: 'Hardware and Software Recommendations',
-                to: '/docs/hardware'
-              },
-              {
                 label: 'User Guide',
-                to: '/docs/user'
+                to: '/docs/category/user-guide'
               },
               {
                 label: 'Developer Docs',

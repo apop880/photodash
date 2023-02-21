@@ -4,7 +4,13 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'docs/**'
+      - '.github/**'
   pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '.github/**'
 
 jobs:
   build:

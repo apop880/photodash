@@ -23,7 +23,7 @@
   <hr class="col-span-6 h-1 bg-gray-400 border-0">
   {#each data.configurations as config}
     <div class="col-span-3 font-semibold">{config.name}</div>
-    <a href={`/${config.uid}`} class="btn btn-primary">
+    <a href={`/${config.name}`} class="btn btn-primary">
       Load
     </a>
     <a href={`/config/${config.uid}`} class="btn btn-primary">

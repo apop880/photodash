@@ -30,7 +30,7 @@ jobs:
             --aarch64 \
             --target . \
             --docker-hub apopoutsis
-            --version ${{ github.ref_name }}
+            --version "${{ github.ref_name }}"
       - name: Get release notes
         id: get_release
         uses: bruceadams/get-release@v1.3.2

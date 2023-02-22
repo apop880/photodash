@@ -47,16 +47,12 @@ jobs:
 
             ${{ steps.get_release.outputs.body }}
       - name: Commit & push release to docs
-        uses: Andro999b/push@v1.3
+        uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           message: |
             docs: add release notes for version ${{ github.ref_name }}
-  update_addons:
-    name: Publish
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout add-ons repo
         uses: actions/checkout@v3
         with:
@@ -68,7 +64,7 @@ jobs:
           contents: |
             # What's Changed
 
-            ${{ needs.publish.outputs.release_notes }}
+            ${{ steps.get_release.outputs.body }}
             Visit [https://photodash.apop.tech/docs](https://photodash.apop.tech/docs) to view release notes from this and previous releases.
       - name: Bump add-on version
         uses: fjogeleit/yaml-update-action@main
@@ -78,9 +74,10 @@ jobs:
           value: '${{ github.ref_name }}'
           commitChange: false
       - name: Commit & push release to addons-repo
-        uses: Andro999b/push@v1.3
+        uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: "apop880/hassio-addons"
+          github_token: ${{ secrets.HASSIO_GH_TOKEN }}
           branch: main
           message: |
             release: photodash version ${{ github.ref_name }}

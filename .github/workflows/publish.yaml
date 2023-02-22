@@ -68,6 +68,7 @@ jobs:
             # What's Changed
 
             ${{ steps.get_release.outputs.body }}
+            
             Visit [https://photodash.apop.tech/docs](https://photodash.apop.tech/docs) to view release notes from this and previous releases.
       - name: Bump add-on version
         uses: fjogeleit/yaml-update-action@main

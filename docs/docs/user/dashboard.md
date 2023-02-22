@@ -7,7 +7,7 @@ description: Working with views and tiles
 
 ## Loading a Configuration
 
-Once you have created a configuration, you can load it from the main Photodash administration page. Alternatively, you can copy the link for a particular load button, and you can use it on a tablet to link directly to the configuration (for example, as the default URL in a kiosk browser).
+Once you have created a configuration, you can load it from the main Photodash administration page. Alternatively, you can copy the link for a particular load button, and you can use it on a tablet to link directly to the configuration (for example, as the default URL in a kiosk browser). The direct link is in the format `http://photodashURL/configurationName`.
 
 :::tip
 

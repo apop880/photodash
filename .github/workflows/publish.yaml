@@ -30,7 +30,7 @@ jobs:
             --aarch64 \
             --target . \
             --docker-hub apopoutsis
-            --version ${{ github.ref }}
+            --version ${{ github.ref_name }}
       - name: Get release notes
         id: get_release
         uses: bruceadams/get-release@v1.3.2
@@ -39,7 +39,7 @@ jobs:
       - name: Write release notes to docs
         uses: DamianReeves/write-file-action@master
         with:
-          path: docs/docs/release-notes/${{ github.ref }}.md
+          path: docs/docs/release-notes/${{ github.ref_name }}.md
           contents: |
             <h2>${{ steps.current_date.outputs.formattedTime }}</h2>
             ${{ steps.get_release.outputs.body }}
@@ -49,7 +49,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           message: |
-            docs: add release notes for version ${{ github.ref }}
+            docs: add release notes for version ${{ github.ref_name }}
       - name: Checkout add-ons repo
         uses: actions/checkout@v3
         with:
@@ -67,7 +67,7 @@ jobs:
         with:
           valueFile: 'config.yaml'
           propertyPath: 'version'
-          value: '${{ github.ref }}'
+          value: '${{ github.ref_name }}'
           commitChange: false
       - name: Commit & push release to addons-repo
         uses: Andro999b/push@v1.3
@@ -75,4 +75,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           message: |
-            release: photodash version ${{ github.ref }}
+            release: photodash version ${{ github.ref_name }}

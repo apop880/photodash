@@ -42,6 +42,7 @@ jobs:
           path: docs/docs/release-notes/${{ github.ref_name }}.md
           contents: |
             <h2>${{ steps.current_date.outputs.formattedTime }}</h2>
+            
             ${{ steps.get_release.outputs.body }}
       - name: Commit & push release to docs
         uses: Andro999b/push@v1.3
@@ -60,6 +61,7 @@ jobs:
           path: photodash/CHANGELOG.md
           contents: |
             # What's Changed
+
             ${{ steps.get_release.outputs.body }}
             Visit [https://photodash.apop.tech/docs](https://photodash.apop.tech/docs) to view release notes from this and previous releases.
       - name: Bump add-on version

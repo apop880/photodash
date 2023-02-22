@@ -42,7 +42,18 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/apopoutsis/photodash/tree/main/docs',
+            'https://github.com/apop880/photodash/tree/main/docs',
+          async sidebarItemsGenerator({defaultSidebarItemsGenerator, ...args}) {
+            const sidebarItems = await defaultSidebarItemsGenerator(args);
+            sidebarItems.map(i => {
+              if ("label" in i && i.label === "Release Notes") {
+                // @ts-ignore
+                i.items.reverse();
+              }
+              return(i)
+            })
+            return(sidebarItems);
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

@@ -9,6 +9,8 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-latest
+    outputs:
+      release_notes: ${{ steps.get_release.outputs.body }}
     steps:
       - name: Get current date
         uses: josStorer/get-current-time@v2
@@ -42,7 +44,7 @@ jobs:
           path: docs/docs/release-notes/${{ github.ref_name }}.md
           contents: |
             <h2>${{ steps.current_date.outputs.formattedTime }}</h2>
-            
+
             ${{ steps.get_release.outputs.body }}
       - name: Commit & push release to docs
         uses: Andro999b/push@v1.3
@@ -51,6 +53,10 @@ jobs:
           branch: main
           message: |
             docs: add release notes for version ${{ github.ref_name }}
+  update_addons:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout add-ons repo
         uses: actions/checkout@v3
         with:
@@ -62,7 +68,7 @@ jobs:
           contents: |
             # What's Changed
 
-            ${{ steps.get_release.outputs.body }}
+            ${{ needs.publish.outputs.release_notes }}
             Visit [https://photodash.apop.tech/docs](https://photodash.apop.tech/docs) to view release notes from this and previous releases.
       - name: Bump add-on version
         uses: fjogeleit/yaml-update-action@main

@@ -42,6 +42,7 @@ jobs:
         uses: DamianReeves/write-file-action@master
         with:
           path: docs/docs/release-notes/${{ github.ref_name }}.md
+          write-mode: overwrite
           contents: |
             <h2>${{ steps.current_date.outputs.formattedTime }}</h2>
 
@@ -62,6 +63,7 @@ jobs:
         uses: DamianReeves/write-file-action@master
         with:
           path: photodash/CHANGELOG.md
+          write-mode: overwrite
           contents: |
             # What's Changed
 

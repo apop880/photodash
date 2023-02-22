@@ -65,7 +65,7 @@ jobs:
       - name: Bump add-on version
         uses: fjogeleit/yaml-update-action@main
         with:
-          valueFile: 'config.yaml'
+          valueFile: 'photodash/config.yaml'
           propertyPath: 'version'
           value: '${{ github.ref_name }}'
           commitChange: false

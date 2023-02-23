@@ -20,7 +20,7 @@
     {#if currentConfig}
     <div class="flex-1 text-primary-content">Current Config: {currentConfig}</div>
     <div class="flex-1">
-        <a href={`/config/${$page.params.uid}`} class="text-primary-content flex items-center gap-2 btn btn-ghost">
+        <a href={`/config/${$page.data.configuration.uid}`} class="text-primary-content flex items-center gap-2 btn btn-ghost">
                 <Icon icon="fluent:form-24-regular" height="36"></Icon>Edit Config
             </a>
     </div>

@@ -12,6 +12,8 @@ A configuration defines a group of basic settings for Photodash. You can create 
 ## Configuration Options
 ### Configuration Name
 Give your configuration a unique name. *(Required)*
+### Clock Format
+If you want to display a clock and the current date in the upper left corner of the dashboard, select either a 12-hour or 24-hour format clock here.
 ### Weather Entity
 This dropdown will populate with any weather entities you have configured in Home Assistant. If you would like the current weather conditions and upcoming forecast to show in this Photodash configuration, select the entity from the dropdown.
 ### Background Music Entity

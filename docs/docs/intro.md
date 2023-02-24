@@ -16,6 +16,8 @@ You may find yourself asking, do we really need another alternative frontend for
 
 ## Why Photodash?
 
+![Photodash Screenshot](/img/screenshot.png)
+
 I've wanted a good tablet dashboard setup since my first forays into the smart home with SmartThings in 2018. However, I had one specific box I wanted any dashboard I used to be able to check: a focus on being used as a photo frame. We have young children and take a lot of pictures as a result, and if we were going to put a tablet in the living room, we wanted it to display photos the vast majority of the time, with a sprinkling of home control.
 
 I tried various other options to try and meet my needs with an existing solution, including DAKBoard, Tileboard with some heavy customizations I made, and Home Assistant Lovelace with an attempted fork of the animated background card. Those, and others, are great tools, and the default Lovelace frontend has come a long way on its own, but nothing met my use case without compromise. Photo display was, at best, an afterthought. Thus, Photodash was born, after two years of on-and-off development.

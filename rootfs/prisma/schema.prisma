@@ -21,6 +21,7 @@ model BaseSettings {
 model Configuration {
   uid String @id @default(cuid())
   name String @unique
+  clockFormat ClockFormat @default(NONE)
   weatherEntity String?
   backgroundMusicEntity String?
   backgroundMusicFile String?
@@ -57,4 +58,10 @@ model Tile {
   h Int
   component String
   config Json
+}
+
+enum ClockFormat {
+  NONE
+  US
+  INTL
 }

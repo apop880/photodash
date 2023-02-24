@@ -10,6 +10,12 @@
         <form method="POST">
             <label for="name">Configuration Name</label>
             <input type="text" id="name" name="name" value={data.configuration?.name} required>
+            <label for="clockFormat">Clock Format</label>
+            <select name="clockFormat" id="clockFormat">
+                <option value="NONE" selected={data.configuration?.clockFormat === "NONE" || data.configuration?.clockFormat === null}>None (Disable clock and date)</option>
+                <option value="US" selected={data.configuration?.clockFormat === "US"}>12-hour</option>
+                <option value="INTL" selected={data.configuration?.clockFormat === "INTL"}>24-hour</option>
+            </select><br>
             <label for="weather-entity">Weather Entity</label>
             <select name="weatherEntity" id="weather-entity">
                 <option value="" selected={data.configuration?.weatherEntity === null}>None (Disable weather)</option>

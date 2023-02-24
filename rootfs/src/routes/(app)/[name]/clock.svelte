@@ -1,18 +1,30 @@
 <script lang="ts">
     import { onMount, onDestroy } from 'svelte';
+    import { page } from '$app/stores';
 
-    let time = new Array(2);
-    let date;
+    let hours: number | null;
+    let minutes: number | null
+    let amPm: string | null;
+    let date: string | null;
+
     let timer;
 
     onMount(() => {
-        const timer = setInterval(
-            () => {
-                let dateObj = new Date();
-                time = dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).split(/\s+/);
-                date = dateObj.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
-            }, 1000);
-        });
+        if ($page.data.configuration?.clockFormat !== "NONE") {
+            timer = setInterval(
+                () => {
+                    let dateObj = new Date();
+                    hours = dateObj.getHours();
+                    minutes = dateObj.getMinutes();
+                    if ($page.data.configuration?.clockFormat === "US") {
+                        amPm = hours < 12 ? "am" : "pm";
+                        if (amPm === "pm" && hours > 12) hours -= 12;
+                        else if (hours === 0) hours = 12;
+                    }
+                    date = dateObj.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+                }, 1000);
+        }
+    });
 
     onDestroy(() => {
         clearInterval(timer);
@@ -21,7 +33,7 @@
 
 <div class="clock">
     {#if date}
-    {time[0]}<span class="am-pm">{time[1]}</span><br />
+    {hours}:{minutes}{#if amPm}<span class="am-pm">{amPm}</span>{/if}<br />
     <span class="date">{date}</span>
     {/if}
 </div>
@@ -38,7 +50,6 @@
     }
     .am-pm {
         font-size: 18pt;
-        text-transform: lowercase;
     }
 
     .date {

@@ -20,6 +20,7 @@ export const actions: Actions = {
         
         const data = await request.formData();
         const name = data.get('name') as string;
+        const clockFormat = data.get('clockFormat') as string;
         const weatherEntity = data.get('weatherEntity');
         const backgroundMusicEntity = data.get('backgroundMusicEntity');
         const backgroundMusicFile = data.get('backgroundMusicFile');
@@ -61,6 +62,7 @@ export const actions: Actions = {
         const result = await prisma.configuration.upsert({
             create: {
                 name,
+                clockFormat,
                 weatherEntity: weatherEntity as string ?? null,
                 backgroundMusicEntity: backgroundMusicEntity as string ?? null,
                 backgroundMusicFile: backgroundMusicFile as string ?? null,
@@ -77,6 +79,7 @@ export const actions: Actions = {
             },
             update: {
                 name,
+                clockFormat,
                 weatherEntity: weatherEntity as string ?? null,
                 backgroundMusicEntity: backgroundMusicEntity as string ?? null,
                 backgroundMusicFile: backgroundMusicFile as string ?? null,

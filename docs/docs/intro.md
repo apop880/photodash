@@ -6,7 +6,7 @@ sidebar_position: 1
 
 :::info
 
-Both Photodash and this documentation are still in beta and undergoing heavy development. Be aware that there will be some bugs and breaking changes along the way. If you run into any issues, feel free to reach out on [Github](https://github.com/apop880/photodash) or the Home Assistant Community Forum.
+Both Photodash and this documentation are still in beta and undergoing heavy development. Be aware that there will be some bugs and breaking changes along the way. If you run into any issues, feel free to reach out on [Github](https://github.com/apop880/photodash) or the [Home Assistant Community Forum](https://community.home-assistant.io/t/photodash-a-photo-focused-home-assistant-dashboard).
 
 Additionally, these docs, like Photodash itself, are open-source. If you see ways to make the documentation clearer or more detailed, please click "Edit this page" at the bottom of any page and contribute your improvements.
 

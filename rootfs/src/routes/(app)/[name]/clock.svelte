@@ -33,7 +33,7 @@
 
 <div class="clock">
     {#if date}
-    {hours}:{minutes}{#if amPm}<span class="am-pm">{amPm}</span>{/if}<br />
+    {#if amPm}{hours}{:else}{hours?.toString().padStart(2, '0')}{/if}:{minutes}{#if amPm}<span class="am-pm">{amPm}</span>{:else}<br />{/if}<br />
     <span class="date">{date}</span>
     {/if}
 </div>

@@ -14,12 +14,16 @@
             timer = setInterval(
                 () => {
                     let dateObj = new Date();
-                    hours = dateObj.getHours();
+                    const h = dateObj.getHours();
                     minutes = dateObj.getMinutes();
                     if ($page.data.configuration?.clockFormat === "US") {
-                        amPm = hours < 12 ? "am" : "pm";
-                        if (amPm === "pm" && hours > 12) hours -= 12;
-                        else if (hours === 0) hours = 12;
+                        amPm = h < 12 ? "am" : "pm";
+                        if (amPm === "pm" && h > 12) hours = h - 12;
+                        else if (h === 0) hours = 12;
+                        else hours = h;
+                    }
+                    else if ($page.data.configuration?.clockFormat === "INTL") {
+                        hours = h;
                     }
                     date = dateObj.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
                 }, 1000);
@@ -33,7 +37,7 @@
 
 <div class="clock">
     {#if date}
-    {#if amPm}{hours}{:else}{hours?.toString().padStart(2, '0')}{/if}:{minutes}{#if amPm}<span class="am-pm">{amPm}</span>{:else}<br />{/if}<br />
+    {#if amPm}{hours}{:else}{hours?.toString().padStart(2, '0')}{/if}:{minutes?.toString().padStart(2, '0')}{#if amPm}<span class="am-pm">{amPm}</span>{:else}<br />{/if}<br />
     <span class="date">{date}</span>
     {/if}
 </div>

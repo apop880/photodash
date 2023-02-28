@@ -4,8 +4,6 @@
     import Select from 'svelecte/src/Svelecte.svelte';
 
     const entities = Object.keys($stateStore ?? {"Could not load entities": ''}).sort();
-    console.log(entities);
-
     export let data: LightTileConfig
 </script>
 

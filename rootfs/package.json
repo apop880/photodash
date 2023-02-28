@@ -36,9 +36,9 @@
 		"daisyui": "^2.47.0",
 		"home-assistant-js-websocket": "^8.0.1",
 		"iconify-icon": "^1.0.2",
+		"svelecte": "^4.0.0-alpha.7",
 		"svelte-gestures": "^1.4.1",
 		"svelte-grid-extended": "^0.2.0",
-		"svelte-select": "^5.3.1",
 		"svelte-sortable": "^0.1.0"
 	}
 }

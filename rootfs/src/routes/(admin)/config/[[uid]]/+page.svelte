@@ -53,24 +53,15 @@
             {#each data.configuration?.disableSlideShow as d, idx}
                 <input type="checkbox" id={"delete_"+d.uid} name={"delete_"+d.uid}>
                 <label for={"entity_"+d.uid}>Entity</label>
-                <select name={"entity_"+d.uid} id={"entity_"+d.uid}>
-                    {#each data.entities as entity}
-                        <option value={entity} selected={d.entity === entity}>{entity}</option>
-                    {/each}
-                </select><br>
+                <Select name={"entity_"+d.uid} options={entities.slice(1)} valueField="value" labelField="label" value={d.entity} />
                 <label for={"state"+d.uid}>State to Match</label>
-                <input type="text" id={"state"+d.uid} name={"state"+d.uid} value={d.state}><br>
+                <input type="text" id={"state"+d.uid} name={"state"+d.uid} value={d.state}><br><br>
             {/each}
             {/if}
             <button class="btn btn-primary" on:click|preventDefault={() => newDisableRows++}>Add State</button>
             {#each Array(newDisableRows) as _, idx}
                 <label for={"new_entity_"+ idx}>Entity</label>
-                <select name={"new_entity_"+idx} id={"new_entity_"+idx}>
-                    <option value=""></option>
-                    {#each data.entities as entity}
-                        <option value={entity}>{entity}</option>
-                    {/each}
-                </select><br>
+                <Select name={"new_entity_"+ idx} options={entities.slice(1)} valueField="value" labelField="label" />
                 <label for={"new_state_"+idx}>State to Match</label>
                 <input type="text" id={"new_state_"+idx} name={"new_state_"+idx}><br>
             {/each}

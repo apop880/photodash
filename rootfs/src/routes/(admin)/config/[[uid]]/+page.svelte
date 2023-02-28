@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import Select from 'svelte-select';
+    import Select from 'svelecte/src/Svelecte.svelte';
     export let data: PageData;
-    let bgAudioEntities = [{value: '', label: 'None (disable background audio player'}, ...data.entities.map(e => ({value: e, label: e}))];
+    let entities = [{value: "", label: 'None (disable background audio player)'}, ...data.entities.map(e => ({value: e, label: e}))];
     let newDisableRows = 0;
 </script>
 
@@ -28,7 +28,7 @@
                 {/each}
             </select><br>
             <label for="music-entity">Background Music Entity</label>
-            <Select name="backgroundMusicEntity" items={bgAudioEntities} value={(data.configuration?.backgroundMusicEntity ?? '') === '' ? 'None (disable background audio player' : data.configuration?.backgroundMusicEntity} />
+            <Select name="backgroundMusicEntity" options={entities} valueField="value" labelField="label" value={data.configuration?.backgroundMusicEntity ?? ""} />
             <label for="music-file">Background Music File</label>
             <input type="text" id="music-file" name="backgroundMusicFile" value={data.configuration?.backgroundMusicFile}><br>
             {#if !(data.baseSettings.googleClientId)}

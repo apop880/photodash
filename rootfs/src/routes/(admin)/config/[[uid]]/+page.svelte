@@ -2,7 +2,7 @@
     import type { PageData } from './$types';
     import Select from 'svelte-select';
     export let data: PageData;
-    data.entities = ['', ...data.entities];
+    let bgAudioEntities = [{value: '', label: 'None (disable background audio player'}, ...data.entities.map(e => ({value: e, label: e}))];
     let newDisableRows = 0;
 </script>
 
@@ -28,7 +28,7 @@
                 {/each}
             </select><br>
             <label for="music-entity">Background Music Entity</label>
-            <Select class="select select-bordered w-full bg-secondary-focus" name="backgroundMusicEntity" items={data.entities} value={data.configuration?.backgroundMusicEntity === null ? '' : data.configuration?.backgroundMusicEntity} />
+            <Select name="backgroundMusicEntity" items={bgAudioEntities} value={(data.configuration?.backgroundMusicEntity ?? '') === '' ? 'None (disable background audio player' : data.configuration?.backgroundMusicEntity} />
             <label for="music-file">Background Music File</label>
             <input type="text" id="music-file" name="backgroundMusicFile" value={data.configuration?.backgroundMusicFile}><br>
             {#if !(data.baseSettings.googleClientId)}

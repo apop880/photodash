@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { PageData } from './$types';
+    import Select from 'svelte-select';
     export let data: PageData;
+    data.entities = ['', ...data.entities];
     let newDisableRows = 0;
 </script>
 
@@ -26,14 +28,7 @@
                 {/each}
             </select><br>
             <label for="music-entity">Background Music Entity</label>
-            <select name="backgroundMusicEntity" id="music-entity">
-                <option value="" selected={data.configuration?.backgroundMusicEntity === null}>None (Disable background audio player)</option>
-                {#each data.entities as entity}
-                    {#if entity.startsWith('input_boolean')}
-                        <option value={entity} selected={data.configuration?.backgroundMusicEntity === entity}>{entity}</option>
-                    {/if}
-                {/each}
-            </select><br>
+            <Select class="select select-bordered w-full bg-secondary-focus" name="backgroundMusicEntity" items={data.entities} value={data.configuration?.backgroundMusicEntity === null ? '' : data.configuration?.backgroundMusicEntity} />
             <label for="music-file">Background Music File</label>
             <input type="text" id="music-file" name="backgroundMusicFile" value={data.configuration?.backgroundMusicFile}><br>
             {#if !(data.baseSettings.googleClientId)}

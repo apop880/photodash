@@ -1,5 +1,10 @@
 <script lang="ts">
 	import type { LightTileConfig } from "$lib/types";
+    import { stateStore } from "$lib/apistore";
+    import Select from 'svelecte/src/Svelecte.svelte';
+
+    const entities = Object.keys($stateStore ?? {"Could not load entities": ''}).sort();
+    console.log(entities);
 
     export let data: LightTileConfig
 </script>
@@ -18,4 +23,4 @@
   <label class="label" for="entity">
       <span class="label-text">Entity ID</span>
   </label>
-  <input required name="entity" type="text" id="entity" class="input input-bordered w-full" value={data?.entity ?? ''} />
+  <Select name="entity" options={entities} labelAsValue={true} value={data?.entity ?? ''} />

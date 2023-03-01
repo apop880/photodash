@@ -7,8 +7,10 @@ import {
 	createLongLivedTokenAuth,
 	subscribeEntities,
 	callService,
+	subscribeServices,
 	Connection,
 	type HassEntities,
+	type HassServices,
 	getAuth,
 	type SaveTokensFunc,
 	ERR_INVALID_AUTH
@@ -72,6 +74,24 @@ export const stateStore = readable<null | HassEntities>(null, function start(set
 	}
 	return function stop() {}
 });
+
+export const serviceStore = readable<string[]>([], function start(set) {
+	let unsubscribe: Function;
+	if (browser && conn) {
+		unsubscribe = subscribeServices(conn, (services) => {
+			let serviceList = []
+			for (const [k, v] of Object.entries(services)) {
+				for (const [k1, v1] of Object.entries(v)) {
+					serviceList.push(`${k}.${k1}`)
+				}
+			}
+			set(serviceList.sort());
+		})
+	}
+	return function stop() {
+		unsubscribe();
+	}
+})
 
 
 export const action = (serviceType: string, target: string) => {

@@ -1,7 +1,3 @@
----
-sidebar_position: 2
----
-
 # Service Tile
 
 A service tile is a generic tile that can call any Home Assistant service.

@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # Light Tile
 
 A light tile turns a light on or off.

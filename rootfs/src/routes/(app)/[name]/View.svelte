@@ -145,8 +145,8 @@
       <div class="form-control w-full">
         <select class="select select-bordered w-full max-w-xs mt-1" name="component" bind:value={component}>
             <option disabled value={null}>Tile Type</option>
-            <option value="ServiceTile">Service Tile</option>
             <option value="LightTile">Light Tile</option>
+            <option value="ServiceTile">Service Tile</option>
         </select>
         {#key itemToEdit}
             <svelte:component this={componentMap[component]} data={itemToEdit?.config} />

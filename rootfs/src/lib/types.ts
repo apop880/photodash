@@ -18,3 +18,7 @@ export type LightTileConfig = {
     icon: string;
     iconHeight?: number;
 }
+
+export type SensorTileConfig = {
+    entity: string;
+}

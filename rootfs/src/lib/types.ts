@@ -21,4 +21,5 @@ export type LightTileConfig = {
 
 export type SensorTileConfig = {
     entity: string;
+    text?: string;
 }

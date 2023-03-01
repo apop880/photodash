@@ -155,7 +155,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div id="outside-edit" class="modal" class:modal-open={modals.edit} on:click={cancelEdit}>
   <div class="modal-box" on:click|stopPropagation>
-    <h3 class="font-bold text-lg">Add a View</h3>
+    <h3 class="font-bold text-lg">Edit View Icon</h3>
     <form id="addView" on:submit|preventDefault={confirmEdit}>
     <div class="form-control w-full">
       <label class="label" for="icon">

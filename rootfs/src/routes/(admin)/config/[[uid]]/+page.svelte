@@ -44,27 +44,34 @@
             {:else}
                 Error loading photo albums from Google, or no albums associated with your account.
             {/if}
-            <div class="flex my-2 gap-1">
+            <div class="flex my-2 gap-2 items-center">
                 <input type="checkbox" id="local-photos" name="useLocalPhotos" checked={data.configuration?.useLocalPhotos}>
                 <span class="label-text">Use local photos. Photodash will look in <code class="bg-primary-content">/share/photodash/{data.configuration?.name.length > 0 ? data.configuration?.name : "configurationName"}</code> and display the files in that folder as your background slideshow.</span> 
               </div>
-            <h3>Disable Slideshow on Entity States:</h3>
+            <h3 class="text-lg font-bold">Disable Slideshow on Entity States:</h3>
             {#if data.configuration?.disableSlideShow}
             {#each data.configuration?.disableSlideShow as d, idx}
-                <input type="checkbox" id={"delete_"+d.uid} name={"delete_"+d.uid}>
+            <div class="rounded-md border p-2 my-4 bg-neutral">
                 <label for={"entity_"+d.uid}>Entity</label>
                 <Select name={"entity_"+d.uid} options={entities.slice(1)} valueField="value" labelField="label" value={d.entity} />
                 <label for={"state"+d.uid}>State to Match</label>
-                <input type="text" id={"state"+d.uid} name={"state"+d.uid} value={d.state}><br><br>
+                <input type="text" id={"state"+d.uid} name={"state"+d.uid} value={d.state}><br>
+                <div class="flex my-2 gap-2 items-center">
+                    <input type="checkbox" id={"delete_"+d.uid} name={"delete_"+d.uid}>
+                    <span class="label-text">Delete</span> 
+                </div>
+            </div>
             {/each}
             {/if}
-            <button class="btn btn-primary" on:click|preventDefault={() => newDisableRows++}>Add State</button>
             {#each Array(newDisableRows) as _, idx}
+            <div class="rounded-md border p-2 my-4 bg-neutral">
                 <label for={"new_entity_"+ idx}>Entity</label>
                 <Select name={"new_entity_"+ idx} options={entities.slice(1)} valueField="value" labelField="label" />
                 <label for={"new_state_"+idx}>State to Match</label>
-                <input type="text" id={"new_state_"+idx} name={"new_state_"+idx}><br>
+                <input type="text" id={"new_state_"+idx} name={"new_state_"+idx}>
+            </div>
             {/each}
+            <button class="btn btn-primary" on:click|preventDefault={() => newDisableRows++}>Add State</button>
             <hr class="col-span-6 h-1 bg-gray-400 border-0 my-4">
             <button class="btn btn-primary my-2">Save Changes</button>
         </form>

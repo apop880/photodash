@@ -50,10 +50,9 @@
         const formData = new FormData(e.target);
         let json = Object.fromEntries(formData.entries());
         const component = json.component as string;
-        delete json["component"]
-        const gridMatrix = Array(rows);
-        let coords = {x: -1, y: -1}
-        gridMatrix.fill([false, false, false, false, false, false, false, false], 0, rows);
+        delete json["component"];
+        let gridMatrix = Array.from({ length: rows }, () => Array.from({ length: 8 }).fill(false));
+        let coords = {x: -1, y: -1};
         items.forEach(i => {
             gridMatrix[i.y].fill(true, i.x, i.x+i.w);
             for (let z=1; z < i.h; z++) {

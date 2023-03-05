@@ -1,6 +1,9 @@
 <script lang="ts">
 	import type { ServiceTileConfig } from "$lib/types";
+    import { stateStore, serviceStore } from "$lib/apistore";
+    import Select from 'svelecte/src/Svelecte.svelte';
 
+    const entities = Object.keys($stateStore ?? {"Could not load entities": ''}).sort();
     export let data: ServiceTileConfig;
 </script>
 
@@ -18,11 +21,13 @@
   <label class="label" for="serviceType">
       <span class="label-text">Service Type</span>
   </label>
-  <input required name="serviceType" type="text" id="serviceType" class="input input-bordered w-full" value={data?.serviceType ?? ''} />
+  {#if $serviceStore.length > 0}
+  <Select name="serviceType" options={$serviceStore} labelAsValue={true} value={data?.serviceType ?? ''} />
+  {/if}
   <label class="label" for="target">
       <span class="label-text">Target</span>
   </label>
-  <input required name="target" type="text" id="target" class="input input-bordered w-full" value={data?.target ?? ''} />
+  <Select name="target" options={entities} labelAsValue={true} value={data?.target ?? ''} />
   <label class="label" for="text">
       <span class="label-text">Tile Text</span>
   </label>

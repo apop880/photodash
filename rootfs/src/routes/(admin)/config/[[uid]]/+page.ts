@@ -29,7 +29,13 @@ export const load = (async ({ data, fetch }) => {
             )
         }
         catch (err) {
-            return { ...data, entities: [], error: "Error fetching entities from Home Assistant" }
+            return { ...data, entities: [], error: 
+                `Error fetching entities from Home Assistant<br>
+                Please ensure that you've configured Photodash as an allowed
+                CORS origin in Home Assistant
+                (follow instructions at <a href="https://photodash.apop.tech/docs/installation" class="link" target="_blank" rel="noreferrer">
+                https://photodash.apop.tech/docs/installation</a>)` 
+            }
         }
         const json: Array<Entity> = await statesRes.json();
         const entities = json.map(e => e.entity_id).sort();

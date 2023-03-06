@@ -8,7 +8,7 @@ Photodash is open source, and although it's still in very early beta and continu
 
 ## Developing Locally
 
-To develop locally, fork and clone the repository, then go into the `rootfs` directory and run `npm install`. In order to run locally, you'll need to connect a database. MySQL or MariaDB are recommended (Postgres should work fine but has not been tested). Populate your database connection string in `.env.example` and rename it `.env`, then run `npx prisma db push` to populate your database with the needed tables. Run `npm run dev` to start the development server.
+To develop locally, fork and clone the repository, then go into the `rootfs` directory and run `npm install`. In order to run locally, you'll need to connect a database. MySQL or MariaDB are recommended (Postgres should work fine but has not been tested). Populate your database connection string in `.env.example` and rename it `.env`, then run `npx prisma db push` to populate your database with the needed tables. Run `npm run dev` to start the development server. The development server will run on port 5173, exposed on your local network by default (you can edit `package.json` to change these defaults if you wish).
 
 ## Tools and Technologies Used
 

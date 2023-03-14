@@ -52,7 +52,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
-          force: true
+          force: True
           message: |
             docs: add release notes for version ${{ github.ref_name }}
       - name: Checkout add-ons repo

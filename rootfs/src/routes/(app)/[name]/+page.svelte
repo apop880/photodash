@@ -46,7 +46,7 @@
         const res = await fetch("api/views", {
             method: "POST",
             body: JSON.stringify({
-                configId: $page.params.uid,
+                configId: $page.data.configuration.uid,
                 icon: e.detail.newView
             })
         });

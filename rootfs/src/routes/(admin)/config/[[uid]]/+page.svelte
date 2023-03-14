@@ -6,7 +6,7 @@
     let newDisableRows = 0;
 </script>
 
-    {#if "error" in data}{data.error}
+    {#if "error" in data}{@html data.error}
     {:else if data.entities?.length === 0}Loading...
     {:else}
         <form method="POST">
